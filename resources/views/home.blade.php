@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset(config('inigift.favicon')) }}" type="image/png" sizes="16x16">
-    <title>Ini Gift</title>
+    <link rel="icon" href="{{ asset(config('system.favicon')) }}" type="image/png" sizes="16x16">
+    <title>New World Online</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <!-- Styles -->
