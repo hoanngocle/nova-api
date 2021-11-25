@@ -1,4 +1,4 @@
-<p align="center"><a href="https://api.newworld.online" target="_blank"><img src="ttps://github.com/hoanngocle/hoanngocle/blob/master/public/logo.png" width="400"></a></p>
+<p align="center"><a href="https://api.newworld.online" target="_blank"><img src="https://github.com/hoanngocle/hoanngocle/blob/master/public/logo.png" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
