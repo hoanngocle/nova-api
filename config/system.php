@@ -6,5 +6,5 @@ return [
     'logo' => 'logo.png',
     'language_support' => ['en', 'vi'],
     'host' => 'api.newworld.online',
-    'port' => '8099'
+    'port' => '8443'
 ];
