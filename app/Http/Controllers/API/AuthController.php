@@ -12,14 +12,6 @@ class AuthController extends BaseController
 {
     /**
      * @param Request $request
-     * @return string
-     */
-    public function test(Request $request): string
-    {
-        return "123";
-    }
-    /**
-     * @param Request $request
      * @return JsonResponse
      */
     public function login(Request $request): JsonResponse
