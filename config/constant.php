@@ -1,39 +1,27 @@
 <?php
 
-//// HTTP Status code
-//define('HTTP_SUCCESS', 200);
-//define('HTTP_CREATED', 201);
-//define('HTTP_ACCEPTED', 202);
-//define('HTTP_NO_CONTENT', 204);
-//define('HTTP_RESET_CONTENT', 205);
-//define('HTTP_BAD_REQUEST', 400);
-//define('HTTP_UNAUTHORIZED', 401);
-//define('HTTP_PAYMENT_REQUIRED', 402);
-//define('HTTP_FORBIDDEN', 403);
-//define('HTTP_NOT_FOUND', 404);
-//define('HTTP_METHOD_NOT_ALLOWED', 405);
-//define('HTTP_NOT_ACCEPTABLE', 406);
-//define('HTTP_REQUEST_TIMEOUT', 408);
-//define('HTTP_CONFLICT', 409);
-//define('HTTP_UNPROCESSABLE', 422);
-//define('HTTP_INTERNAL_SERVER_ERROR', 500);
-//define('HTTP_NOT_IMPLEMENTED', 501);
-//define('HTTP_BAD_GATEWAY', 502);
-//define('HTTP_SERVICE_UNAVAILABLE', 503);
-//define('HTTP_GATEWAY_TIMEOUT', 504);
-//define('HTTP_VERSION_NOT_SUPPORTED', 505);
-//
-//define('ACTIVE', 1);
-//define('INACTIVE', 0);
-//
-//// Basic table
-//const TBL_USER                  = 'users';
-//const TBL_CHARACTER             = 'characters';
-//
-//const TBL_CHARACTER_STAT        = 'character_stats';
-//const TBL_CHARACTER_SKILL       = 'character_skill';
-//const TBL_CHARACTER_INVENTORY   = 'character_inventory';
-//const TBL_LOGIN_HISTORY         = 'login_histories';
+return [
+    // HTTP Status code
+    'HTTP_CODE' => [
+        'SUCCESS' => 200,
+        'BAD_REQUEST' => 400,
+        'UNAUTHORIZED' => 401,
+        'FORBIDDEN' => 403,
+        'NOT_FOUND' => 404,
+        'METHOD_NOT_ALLOWED' => 405,
+        'INTERNAL_SERVER_ERROR' => 500,
+        'BAD_GATEWAY' => 502,
+        'GATEWAY_TIMEOUT' => 504,
+    ],
+    'TABLE' => [
+        'USER' => 'users',
+        'CHARACTER' => 'characters',
+        'CHARACTER_STAT' => 'character_stats',
+        'CHARACTER_INVENTORY' => 'character_inventory',
+        'LOGIN_HISTORY' => 'login_histories',
+    ]
+];
+
 //
 //// Master table
 //const TBL_CATEGORY      = 'categories';
