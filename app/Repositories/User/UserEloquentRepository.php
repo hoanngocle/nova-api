@@ -5,6 +5,8 @@ namespace App\Repositories\User;
 use App\Models\User;
 use App\Repositories\Base\BaseEloquentRepository;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserEloquentRepository extends BaseEloquentRepository implements UserRepositoryInterface
 {
@@ -12,7 +14,7 @@ class UserEloquentRepository extends BaseEloquentRepository implements UserRepos
      * get model
      * @return string
      */
-    public function getModel()
+    public function getModel(): string
     {
         return User::class;
     }
@@ -22,17 +24,13 @@ class UserEloquentRepository extends BaseEloquentRepository implements UserRepos
      *
      * @param $sortBy
      * @param $perPage
-     * @param $accountType
-     * @return bool|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return bool|LengthAwarePaginator
      */
-    public function getAllUsers($sortBy, $perPage)
+    public function getAllUsers($sortBy, $perPage): LengthAwarePaginator|bool
     {
         try {
-            $query = $this->_model
-                ->orderBy($sortBy, 'ASC')
-                ->paginate($perPage);
-
-            return $query;
+            return $this->_model
+                ->all();
         } catch (Exception $e) {
             logger(__METHOD__ . __LINE__ . $e->getMessage());
             return false;
@@ -42,19 +40,15 @@ class UserEloquentRepository extends BaseEloquentRepository implements UserRepos
     /**
      * Get all user by role
      *
-     * @param $sortBy
-     * @param $perPage
-     * @param $accountType
-     * @return bool|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param $id
+     * @return mixed
      */
-    public function getUserInfo($id)
+    public function getUserInfo($id): mixed
     {
         try {
-            $query = $this->_model
+            return $this->_model
                 ->with()
                 ->get();
-
-            return $query;
         } catch (Exception $e) {
             logger(__METHOD__ . __LINE__ . $e->getMessage());
             return false;
