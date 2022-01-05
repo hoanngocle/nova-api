@@ -2,14 +2,15 @@
 
 namespace App\Repositories\Base;
 
-use App\Repositories\Base\BaseRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseEloquentRepository implements BaseRepositoryInterface
 {
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var Model
      */
-    protected $_model;
+    protected Model $_model;
 
     /**
      * EloquentRepository constructor.
@@ -23,7 +24,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * get model
      * @return string
      */
-    abstract public function getModel();
+    abstract public function getModel(): string;
 
     /**
      * Set model
@@ -35,9 +36,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
 
     /**
      * Get All
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return Collection|static[]
      */
-    public function all()
+    public function all(): Collection|static
     {
         return $this->_model->all();
     }
@@ -47,7 +48,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      *
      * @return mixed
      */
-    public function allWithTrash()
+    public function allWithTrash(): mixed
     {
         return $this->_model->withTrashed()->all();
     }
@@ -58,7 +59,8 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param $locale
      * @return mixed
      */
-    public function allLocale($locale) {
+    public function allLocale($locale): mixed
+    {
         return $this->_model->withTranslation($locale)->get();
     }
 
@@ -67,10 +69,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function find($id)
+    public function find($id): mixed
     {
-        $result = $this->_model->find($id);
-        return $result;
+        return $this->_model->find($id);
     }
 
     /**
@@ -78,10 +79,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param $limit
      * @return mixed
      */
-    public function limit($limit)
+    public function limit($limit): mixed
     {
-        $result = $this->_model->limit($limit)->get();
-        return $result;
+        return $this->_model->limit($limit)->get();
     }
 
     /**
@@ -89,10 +89,8 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function create($attributes = [])
+    public function create($attributes = []): mixed
     {
-        $attributes['created_by'] = auth()->guard(STAFF_GUARD)->user()->username;
-        $attributes['updated_by'] = auth()->guard(STAFF_GUARD)->user()->username;
         return $this->_model->create($attributes);
     }
 
@@ -101,7 +99,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function createTrans($attributes = [])
+    public function createTrans($attributes = []): mixed
     {
         return $this->_model->create($attributes);
     }
@@ -112,9 +110,8 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param array $attributes
      * @return bool|mixed
      */
-    public function update($id, $attributes = [])
+    public function update($id, $attributes = []): mixed
     {
-        $attributes['updated_by'] = auth()->guard(STAFF_GUARD)->user()->username;
         $result = $this->find($id);
         if ($result) {
             $result->update($attributes);
@@ -127,9 +124,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * Update
      * @param $id
      * @param array $attributes
-     * @return bool|mixed
+     * @return mixed
      */
-    public function updateTrans($id, $attributes = [])
+    public function updateTrans($id, $attributes = []): mixed
     {
         $result = $this->find($id);
         if ($result) {
@@ -145,7 +142,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param $id
      * @return bool
      */
-    public function delete($id)
+    public function delete($id): bool
     {
         $result = $this->find($id);
         if ($result) {
@@ -159,9 +156,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * Restore deleted data
      *
      * @param $id
-     * @return mixed
+     * @return bool
      */
-    public function restore($id)
+    public function restore($id): bool
     {
         $result = $this->_model->withTrashed()->find($id);
         if ($result) {
@@ -177,7 +174,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param $id
      * @return bool
      */
-    public function destroy($id)
+    public function destroy($id): bool
     {
         $result = $this->find($id);
         if ($result) {
@@ -191,10 +188,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * Get last item
      * @return mixed
      */
-    public function last()
+    public function last(): mixed
     {
-        $result = $this->_model->orderBy('created_at', 'desc')->first();
-        return $result;
+        return $this->_model->orderBy('created_at', 'desc')->first();
     }
 
     /**
@@ -202,10 +198,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param $perPage
      * @return mixed
      */
-    public function paginate($sortBy, $perPage)
+    public function paginate($sortBy, $perPage): mixed
     {
-        $result = $this->_model->orderBy($sortBy, 'ASC')->paginate($perPage);
-        return $result;
+        return $this->_model->orderBy($sortBy, 'ASC')->paginate($perPage);
     }
 
     /**
@@ -214,9 +209,8 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * @param $perPage
      * @return mixed
      */
-    public function paginateLocale($locale, $sortBy, $perPage)
+    public function paginateLocale($locale, $sortBy, $perPage): mixed
     {
-        $result = $this->_model->translateOrDefault($locale)->orderBy($sortBy, 'ASC')->paginate($perPage);
-        return $result;
+        return $this->_model->translateOrDefault($locale)->orderBy($sortBy, 'ASC')->paginate($perPage);
     }
 }
