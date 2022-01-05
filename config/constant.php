@@ -1,42 +1,37 @@
 <?php
 
 return [
+    'BASE_TEXT_TOKEN' => 'NewWorldOnline',
     // HTTP Status code
     'HTTP_CODE' => [
-        'SUCCESS' => 200,
-        'BAD_REQUEST' => 400,
-        'UNAUTHORIZED' => 401,
-        'FORBIDDEN' => 403,
-        'NOT_FOUND' => 404,
-        'METHOD_NOT_ALLOWED' => 405,
+        'SUCCESS'               => 200,
+        'BAD_REQUEST'           => 400,
+        'UNAUTHORIZED'          => 401,
+        'FORBIDDEN'             => 403,
+        'NOT_FOUND'             => 404,
+        'METHOD_NOT_ALLOWED'    => 405,
         'INTERNAL_SERVER_ERROR' => 500,
-        'BAD_GATEWAY' => 502,
-        'GATEWAY_TIMEOUT' => 504,
+        'BAD_GATEWAY'           => 502,
+        'GATEWAY_TIMEOUT'       => 504,
     ],
-    'TABLE' => [
-        'USER' => 'users',
-        'CHARACTER' => 'characters',
-        'CHARACTER_STAT' => 'character_stats',
-        'CHARACTER_INVENTORY' => 'character_inventory',
+    'TBL' => [
+        'USER'          => 'users',
+        'PROFILE'       => 'profiles',
+        'STAT'          => 'stats',
+        'INVENTORY'     => 'inventories',
         'LOGIN_HISTORY' => 'login_histories',
+        'IMAGES'        => 'images'
+    ],
+    'MASTER_TBL' => [
+        'CATEGORY'  => 'master_categories',
+        'ITEM'      => 'master_items',
+        'PARTNER'   => 'master_partners',
+        'COSTUME'   => 'master_costumes',
+        'EQUIPMENT' => 'master_equipments',
     ]
 ];
 
-//
-//// Master table
-//const TBL_CATEGORY      = 'categories';
-//const TBL_ITEM          = 'items';
-//const TBL_SKILL         = 'skills';
-//const TBL_SKILL_INFO    = 'skill_infos';
-//const TBL_WAIFU         = 'waifus';
-//const TBL_WAIFU_COSTUME = 'waifu_costumes';
-//const TBL_EQUIPMENT     = 'equipments';
-//const TBL_EQUIPMENT_SET = 'equipment_sets';
-//
-////
-//const TBL_COURSE = 'courses';
-//const TBL_SET = 'sets';
-//const TBL_TERM = 'terms';
+
 //const TBL_RECORD = 'records';
 //
 //// URL Crawler

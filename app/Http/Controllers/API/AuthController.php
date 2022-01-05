@@ -2,26 +2,65 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\User\LoginRequest;
+use App\Services\UserService;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller as BaseController;
 use App\Models\User;
 
 class AuthController extends BaseController
 {
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function login(Request $request): JsonResponse
+    protected UserService $userService;
+
+    public function __construct(UserService $userService)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $auth = Auth::user();
-            $success['token'] = $auth->createToken('LaravelSanctumAuth')->plainTextToken;
-            $success['name'] = $auth->name;
+        $this->userService = $userService;
+    }
+
+    /**
+     * @param LoginRequest $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function login(LoginRequest $request): JsonResponse
+    {
+        $login = $this->userService->processLogin($request);
+        if ($login) {
+            $profile = $this->userService->getProfile();
+            $success['token'] = $profile->createToken(config('constant.BASE_TEXT_TOKEN'))->plainTextToken;
+            $success['username'] = $profile->nickname;
 
             return $this->handleResponse($success, 'User logged-in!');
+        } else {
+            return $this->handleError('Unauthorised.', ['error' => 'Unauthorised']);
+        }
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function logout(): JsonResponse
+    {
+        $response = $this->userService->logout();
+        if ($response) {
+            return $this->handleResponse($response, 'User logged out!');
+        } else {
+            return $this->handleError('Unauthorised.', ['error' => 'Unauthorised']);
+        }
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function profile(): JsonResponse
+    {
+        $response = $this->userService->getProfile();
+        if ($response) {
+            return $this->handleResponse($response, 'User logged out!');
         } else {
             return $this->handleError('Unauthorised.', ['error' => 'Unauthorised']);
         }

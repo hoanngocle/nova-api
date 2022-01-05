@@ -13,14 +13,14 @@ interface BaseRepositoryInterface
      *
      * @return mixed
      */
-    public function all();
+    public function all(): mixed;
 
     /**
      * Get all data with soft deleted data
      *
      * @return mixed
      */
-    public function allWithTrash();
+    public function allWithTrash(): mixed;
 
     /**
      * Get all data with locale
@@ -28,7 +28,7 @@ interface BaseRepositoryInterface
      * @param $locale
      * @return mixed
      */
-    public function allLocale($locale);
+    public function allLocale($locale): mixed;
 
     /**
      * Get one
@@ -36,7 +36,7 @@ interface BaseRepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function find($id);
+    public function find($id): mixed;
 
     /**
      * Limit
@@ -44,7 +44,7 @@ interface BaseRepositoryInterface
      * @param $limit
      * @return mixed
      */
-    public function limit($limit);
+    public function limit($limit): mixed;
 
     /**
      * Create
@@ -52,7 +52,7 @@ interface BaseRepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function create($attributes = []);
+    public function create($attributes = []): mixed;
 
     /**
      * Create translate
@@ -60,7 +60,7 @@ interface BaseRepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function createTrans($attributes = []);
+    public function createTrans($attributes = []): mixed;
 
     /**
      * Update
@@ -69,7 +69,7 @@ interface BaseRepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function update($id, $attributes = []);
+    public function update($id, $attributes = []): mixed;
 
     /**
      * Update translate
@@ -78,7 +78,7 @@ interface BaseRepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function updateTrans($id, $attributes = []);
+    public function updateTrans($id, $attributes = []): mixed;
 
     /**
      * Soft delete
@@ -86,7 +86,7 @@ interface BaseRepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function delete($id);
+    public function delete($id): mixed;
 
     /**
      * Restore deleted data
@@ -94,7 +94,7 @@ interface BaseRepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function restore($id);
+    public function restore($id): mixed;
 
     /**
      * Hard delete
@@ -102,20 +102,20 @@ interface BaseRepositoryInterface
      * @param $id
      * @return bool
      */
-    public function destroy($id);
+    public function destroy($id): bool;
 
     /**
      * Get last item
      * @return mixed
      */
-    public function last();
+    public function last(): mixed;
 
     /**
      * @param $sortBy
      * @param $perPage
      * @return mixed
      */
-    public function paginate($sortBy, $perPage);
+    public function paginate($sortBy, $perPage): mixed;
 
     /**
      * @param $locale
@@ -123,5 +123,5 @@ interface BaseRepositoryInterface
      * @param $perPage
      * @return mixed
      */
-    public function paginateLocale($locale, $sortBy, $perPage);
+    public function paginateLocale($locale, $sortBy, $perPage): mixed;
 }
