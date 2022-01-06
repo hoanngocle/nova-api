@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,5 +40,38 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param Request $request
+     * @param Throwable $e
+     * @return Response
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e): Response
+    {
+        if ($e instanceOf ValidationException) {
+            $response = [
+                'status' => config('constant.HTTP_CODE.UNPROCESSABLE'),
+                'data' => $e->errors(),
+                'message' => __('message.invalid.input'),
+            ];
+
+            return response()->json($response, config('constant.HTTP_CODE.UNPROCESSABLE'));
+        }
+        return parent::render($request, $e);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if (!$request->expectsJson()) {
+            $response = [
+                'success' => false,
+                'message' => 'Unauthenticated',
+            ];
+            return response()->json($response, 401);
+        }
     }
 }
