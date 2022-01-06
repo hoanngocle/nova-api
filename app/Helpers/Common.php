@@ -194,3 +194,32 @@ if (!function_exists('errorReturn')) {
     }
 }
 
+if (!function_exists('randomString')) {
+    /**
+     * @param int $length
+     * @return string
+     * @throws Exception
+     */
+    function randomString($length = 64)
+    {
+        $length = ($length < 4) ? 4 : $length;
+        return bin2hex(random_bytes(($length - ($length % 2)) / 2));
+    }
+}
+
+if (!function_exists('getFullQuery')) {
+    /**
+     * @param $builder
+     * @return null|string|string[]
+     */
+    function getFullQuery($builder)
+    {
+        $sql = $builder->toSql();
+        foreach ($builder->getBindings() as $binding) {
+            $value = is_numeric($binding) ? $binding : "'" . $binding . "'";
+            $sql = preg_replace('/\?/', $value, $sql, 1);
+        }
+        return $sql;
+    }
+}
+

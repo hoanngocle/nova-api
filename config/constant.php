@@ -10,6 +10,7 @@ return [
         'FORBIDDEN'             => 403,
         'NOT_FOUND'             => 404,
         'METHOD_NOT_ALLOWED'    => 405,
+        'UNPROCESSABLE'         => 422,
         'INTERNAL_SERVER_ERROR' => 500,
         'BAD_GATEWAY'           => 502,
         'GATEWAY_TIMEOUT'       => 504,

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\User\LoginRequest;
+use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller as BaseController;
 use App\Models\User;
 
@@ -29,10 +29,9 @@ class AuthController extends BaseController
         $login = $this->userService->processLogin($request);
         if ($login) {
             $profile = $this->userService->getProfile();
-            $success['token'] = $profile->createToken(config('constant.BASE_TEXT_TOKEN'))->plainTextToken;
-            $success['username'] = $profile->nickname;
+            $data = new UserResource($profile);
 
-            return $this->handleResponse($success, 'User logged-in!');
+            return $this->handleResponse($data, 'User logged-in!');
         } else {
             return $this->handleError('Unauthorised.', ['error' => 'Unauthorised']);
         }
