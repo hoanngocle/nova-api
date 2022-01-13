@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('login', [AuthController::class, 'login']);
+Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider']);
+Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
 
 Route::group(['middleware' => ['VerifyAPIKey']], function () {
-    Route::post('login', [AuthController::class, 'login']);
 //    Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
 

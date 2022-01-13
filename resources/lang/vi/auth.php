@@ -13,6 +13,14 @@ return [
     |
     */
 
+    'login' => [
+        'success' => 'Đăng nhập thành công.',
+        'error' => 'Đăng nhập thất bại.'
+    ],
+    'logout' => [
+        'success' => 'Đăng xuất thành công.',
+        'error' => 'Đăng xuất thất bại.'
+    ],
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
