@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\User\UserRepositoryInterface;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class UserService
 {
@@ -26,8 +27,8 @@ class UserService
     public function processLogin($request): bool
     {
         $credentials = [
-            'email'     => $request->email,
-            'password'  => $request->password
+            'email' => $request->email,
+            'password' => $request->password
         ];
         return auth()->attempt($credentials);
     }
@@ -40,8 +41,34 @@ class UserService
         return auth()->user()->tokens()->delete();
     }
 
+    /**
+     * Get profile of user
+     *
+     */
     public function getProfile()
     {
-        return auth()->user();
+        $idUser = auth()->user();
+        return $this->userRepository->find($idUser);
+    }
+
+    /**
+     * @param $provider
+     * @return JsonResponse|null
+     */
+    public function validateProvider($provider): ?JsonResponse
+    {
+        if (!in_array($provider, config("constant.SOCIAL_ARRAY"))) {
+            return response()->json(
+                ['error' => __("auth.provider.error")],
+                config("constant.HTTP_CODE.UNPROCESSABLE")
+            );
+        }
+
+        return null;
+    }
+
+    public function firstOrCreateUser($provider, $user)
+    {
+        return $this->userRepository->firstOrCreateUser($provider, $user);
     }
 }

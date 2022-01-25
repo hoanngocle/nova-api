@@ -13,6 +13,17 @@ return [
     |
     */
 
+    'login' => [
+        'success' => 'Login successfully.',
+        'error' => 'Login failed.'
+    ],
+    'logout' => [
+        'success' => 'Logout successfully.',
+        'error' => 'Logout failed.'
+    ],
+    'provider' => [
+        'error' => 'Please login using Facebook, Github or Google.'
+    ],
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',

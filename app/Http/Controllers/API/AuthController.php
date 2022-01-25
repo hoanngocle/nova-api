@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller as BaseController;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -62,9 +63,9 @@ class AuthController extends BaseController
     {
         $response = $this->userService->getProfile();
         if ($response) {
-            return $this->handleResponse($response, 'User logged out!');
+            return $this->handleResponse($response, __('auth.profile.success'));
         } else {
-            return $this->handleError('Unauthorised.', ['error' => 'Unauthorised']);
+            return $this->handleError(__('auth.profile.error'), ['error' => __('auth.profile.error')]);
         }
     }
 
@@ -94,9 +95,15 @@ class AuthController extends BaseController
         return $this->handleResponse($success, 'User successfully registered!');
     }
 
-    public function redirectToProvider($provider)
+    /**
+     * Login with social network
+     *
+     * @param $provider
+     * @return JsonResponse|RedirectResponse
+     */
+    public function loginSocial($provider): JsonResponse|RedirectResponse
     {
-        $validated = $this->validateProvider($provider);
+        $validated = $this->userService->validateProvider($provider);
         if (!is_null($validated)) {
             return $validated;
         }
@@ -104,49 +111,36 @@ class AuthController extends BaseController
         return Socialite::driver($provider)->stateless()->redirect();
     }
 
-    public function handleProviderCallback($provider)
+    /**
+     * Handle when another page callback
+     *
+     * @param $provider
+     * @return JsonResponse
+     */
+    public function handleSocialCallback($provider): JsonResponse
     {
-        $validated = $this->validateProvider($provider);
+        $validated = $this->userService->validateProvider($provider);
         if (!is_null($validated)) {
             return $validated;
         }
         try {
             $user = Socialite::driver($provider)->stateless()->user();
-        } catch (ClientException $exception) {
-            return response()->json(['error' => 'Invalid credentials provided.'], 422);
+            return $this->handleUser($provider, $user);
+        } catch (ClientException $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return $this->handleError(__('auth.provider.invalid'), ['error' => __('auth.provider.invalid')]);
         }
-
-        $userCreated = User::firstOrCreate(
-            [
-                'email' => $user->getEmail()
-            ],
-            [
-                'email_verified_at' => now(),
-                'username' => $user->getName(),
-            ]
-        );
-        $userCreated->providers()->updateOrCreate(
-            [
-                'provider' => $provider,
-                'provider_id' => $user->getId(),
-            ],
-            [
-                'avatar' => $user->getAvatar()
-            ]
-        );
-        $token = $userCreated->createToken('token-name')->plainTextToken;
-
-        return response()->json($userCreated, 200, ['Access-Token' => $token]);
     }
 
-    /**
-     * @param $provider
-     * @return JsonResponse
-     */
-    protected function validateProvider($provider)
+    public function handleUser($provider, $user): JsonResponse
     {
-        if (!in_array($provider, ['facebook', 'github', 'google'])) {
-            return response()->json(['error' => 'Please login using facebook, github or google'], 422);
+        $userCreated = $this->userService->firstOrCreateUser($provider, $user);
+        if ($userCreated) {
+            $data = new UserResource($userCreated);
+
+            return $this->handleResponse($data, __('auth.login.success'));
+        } else {
+            return $this->handleError(__('auth.login.failed'), ['error' => __('auth.login.failed')]);
         }
     }
 }

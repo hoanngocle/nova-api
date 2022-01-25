@@ -2,6 +2,11 @@
 
 return [
     'BASE_TEXT_TOKEN' => 'NewWorldOnline',
+    'SOCIAL_ARRAY' => [
+        'facebook',
+        'google',
+        'github'
+    ],
     // HTTP Status code
     'HTTP_CODE' => [
         'SUCCESS'               => 200,

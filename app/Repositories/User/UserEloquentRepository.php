@@ -19,14 +19,7 @@ class UserEloquentRepository extends BaseEloquentRepository implements UserRepos
         return User::class;
     }
 
-    /**
-     * Get all user by role
-     *
-     * @param $sortBy
-     * @param $perPage
-     * @return bool|LengthAwarePaginator
-     */
-    public function getAllUsers($sortBy, $perPage): LengthAwarePaginator|bool
+    public function getAllUsers($sortBy, $perPage)
     {
         try {
             return $this->_model
@@ -47,8 +40,37 @@ class UserEloquentRepository extends BaseEloquentRepository implements UserRepos
     {
         try {
             return $this->_model
-                ->with()
                 ->get();
+        } catch (Exception $e) {
+            logger(__METHOD__ . __LINE__ . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function firstOrCreateUser($provider, $user)
+    {
+        try {
+            $userCreated = User::firstOrCreate(
+                [
+                    'email' => $user->getEmail()
+                ],
+                [
+                    'email_verified_at' => now(),
+                    'username' => $user->getName(),
+                ]
+            );
+
+            $userCreated->providers()->updateOrCreate(
+                [
+                    'provider' => $provider,
+                    'provider_id' => $user->getId(),
+                ],
+                [
+                    'avatar' => $user->getAvatar()
+                ]
+            );
+
+            return $userCreated;
         } catch (Exception $e) {
             logger(__METHOD__ . __LINE__ . $e->getMessage());
             return false;
