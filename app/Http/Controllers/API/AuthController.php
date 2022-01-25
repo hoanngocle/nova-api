@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Exception;
@@ -73,26 +74,15 @@ class AuthController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->handleError($validator->errors());
+        $user = $this->userService->registerUser($request);
+        if ($user) {
+            $data = new UserResource($user);
+            return $this->handleResponse($data, __('auth.profile.success'));
+        } else {
+            return $this->handleError(__('auth.profile.error'), ['error' => __('auth.profile.error')]);
         }
-
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] = $user->createToken('LaravelSanctumAuth')->plainTextToken;
-        $success['name'] = $user->name;
-
-        return $this->handleResponse($success, 'User successfully registered!');
     }
 
     /**

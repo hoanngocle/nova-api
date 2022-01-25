@@ -71,4 +71,11 @@ class UserService
     {
         return $this->userRepository->firstOrCreateUser($provider, $user);
     }
+
+    public function registerUser($request) {
+        $input = $request->all();
+        $input['password'] = bcrypt($request['password']);
+
+        return $this->userRepository->create($input);
+    }
 }
