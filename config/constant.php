@@ -31,7 +31,7 @@ return [
     'MASTER_TBL' => [
         'CATEGORY'  => 'master_categories',
         'ITEM'      => 'master_items',
-        'PARTNER'   => 'master_partners',
+        'HEROES'    => 'master_heroes',
         'COSTUME'   => 'master_costumes',
         'EQUIPMENT' => 'master_equipments',
     ]
