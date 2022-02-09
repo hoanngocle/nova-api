@@ -10,6 +10,7 @@ enum Rarity
     case EPIC;
     case UNIQUE;
     case LEGENDARY;
+    case MYTHICAL;
 
     public function color(): string
     {
@@ -19,19 +20,21 @@ enum Rarity
             self::RARE      => 'blue',
             self::EPIC      => 'purple',
             self::UNIQUE    => 'yellow',
-            self::LEGENDARY => 'red',
+            self::LEGENDARY => 'orange',
+            self::MYTHICAL  => 'red',
         };
     }
 
     public function text(): string
     {
         return match ($this) {
-            self::COMMON    => 'Phàm phẩm',
-            self::NORMAL    => 'green',
-            self::RARE      => 'blue',
-            self::EPIC      => 'purple',
-            self::UNIQUE    => 'yellow',
-            self::LEGENDARY => 'red',
+            self::COMMON    => 'Phàm Phẩm',
+            self::NORMAL    => 'Thường',
+            self::RARE      => 'Hiếm',
+            self::EPIC      => 'Cực Hiếm',
+            self::UNIQUE    => 'Siêu Phẩm',
+            self::LEGENDARY => 'Huyền Thoại',
+            self::MYTHICAL  => 'Thần Thoại',
         };
     }
 }
