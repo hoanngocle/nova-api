@@ -26,13 +26,12 @@ return [
         'STAT'          => 'stats',
         'INVENTORY'     => 'inventories',
         'LOGIN_HISTORY' => 'login_histories',
-        'IMAGES'        => 'images'
     ],
     'MASTER_TBL' => [
         'CATEGORY'  => 'master_categories',
         'ITEM'      => 'master_items',
-        'HEROES'    => 'master_heroes',
-        'COSTUME'   => 'master_costumes',
+        'HERO'      => 'master_heroes',
+        'IMAGE'     => 'master_images',
         'EQUIPMENT' => 'master_equipments',
     ]
 ];

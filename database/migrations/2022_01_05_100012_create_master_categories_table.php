@@ -13,9 +13,12 @@ class CreateMasterCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_categories', function (Blueprint $table) {
+        Schema::create(config('constant.MASTER_TBL.CATEGORY'), function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('code');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +29,6 @@ class CreateMasterCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_categories');
+        Schema::dropIfExists(config('constant.MASTER_TBL.CATEGORY'));
     }
 }
