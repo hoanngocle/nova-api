@@ -52,6 +52,8 @@ class UserService
     }
 
     /**
+     * Validate provider (facebook, google, github)
+     *
      * @param $provider
      * @return JsonResponse|null
      */
@@ -67,12 +69,26 @@ class UserService
         return null;
     }
 
-    public function firstOrCreateUser($provider, $user)
+    /**
+     * Get user or create if not found
+     *
+     * @param $provider
+     * @param $user
+     * @return mixed
+     */
+    public function firstOrCreateUser($provider, $user): mixed
     {
         return $this->userRepository->firstOrCreateUser($provider, $user);
     }
 
-    public function registerUser($request) {
+    /**
+     * Create new user
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function registerUser($request): mixed
+    {
         $input = $request->all();
         $input['password'] = bcrypt($request['password']);
 
