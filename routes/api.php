@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
+Route::controller(AuthController::class)->group(function (){
+    Route::post('login', 'login');
+    Route::post('register', 'register');
 
-Route::get('login/{provider}', [AuthController::class, 'loginSocial']);
-Route::get('login/{provider}/callback', [AuthController::class, 'handleSocialCallback']);
+    Route::get('login/{provider}', 'loginSocial');
+    Route::get('login/{provider}/callback', 'handleSocialCallback');
+});
 
-Route::group(['middleware' => ['VerifyAPIKey']], function () {
-    Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
-
-    Route::group(['middleware' => 'auth:sanctum'], function () {
+Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
+        Route::post('logout', [AuthController::class, 'logout']);
         Route::get('profile', [AuthController::class, 'profile'])->name('user.profile');
 
         Route::group(['prefix' => 'master'], function () {
@@ -40,6 +40,5 @@ Route::group(['middleware' => ['VerifyAPIKey']], function () {
 //        Route::group(['prefix' => 'term'], function () {
 //            Route::get('/', [TermController::class, 'getListTermBySet'])->name('term.list.by-set');
 //        });
-    });
 });
 
