@@ -27,8 +27,7 @@ Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
         Route::get('profile', [AuthController::class, 'profile'])->name('user.profile');
 
         Route::group(['prefix' => 'master'], function () {
-            //
-            // Lets test contribute
+            // Test commit
             Route::group(['prefix' => 'heroes'], function () {
 //                Route::get('/', [SetController::class, 'index'])->name('set.list');
 //                Route::get('/list', [SetController::class, 'getListSetByCourse'])->name('set.list.by-course');
