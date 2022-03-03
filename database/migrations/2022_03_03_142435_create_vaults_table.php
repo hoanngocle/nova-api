@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCharacterJobTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateCharacterJobTable extends Migration
      */
     public function up()
     {
-        Schema::create('character_job', function (Blueprint $table) {
+        Schema::create(config('constant.TBL.VAULT'), function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('character_id');
+            $table->integer('slot');
+            $table->integer('category_id');
+            $table->integer('item_id');
         });
     }
 
@@ -26,6 +29,6 @@ class CreateCharacterJobTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('character_job');
+        Schema::dropIfExists(config('constant.TBL.VAULT'));
     }
-}
+};

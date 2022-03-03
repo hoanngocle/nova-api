@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname', 255)->unique();
             $table->text('bio')->nullable();
             $table->string('avatar', 255);
-            $table->tinyInteger('gender')->unsigned()->default(Gender::FEMALE->value)->nullable()->comment('0: Female, 1: Male');
+            $table->tinyInteger('gender')->nullable()->comment('0: Female, 1: Male');
             $table->datetime('dob')->nullable();
             $table->string('address', 255)->nullable();
             $table->rememberToken();

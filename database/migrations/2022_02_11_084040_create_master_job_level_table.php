@@ -13,9 +13,14 @@ class CreateMasterJobLevelTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_job_level', function (Blueprint $table) {
+        Schema::create(config('constant.MASTER_TBL.JOB_LEVEL'), function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->tinyInteger('type')->comment('1: luyện đan sư; 2: luyện khí sư');
+            $table->unsignedInteger('level');
+            $table->unsignedDouble('exp');
+            $table->string('name');
+            $table->integer('effect');
+            $table->string('rarity');
         });
     }
 
@@ -26,6 +31,6 @@ class CreateMasterJobLevelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_job_level');
+        Schema::dropIfExists(config('constant.MASTER_TBL.JOB_LEVEL'));
     }
 }

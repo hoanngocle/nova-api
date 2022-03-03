@@ -13,9 +13,11 @@ class CreateMasterLevelTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_level', function (Blueprint $table) {
+        Schema::create(config('constant.MASTER_TBL.LEVEL'), function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('level');
+            $table->unsignedDouble('exp');
+            $table->string('name');
         });
     }
 
