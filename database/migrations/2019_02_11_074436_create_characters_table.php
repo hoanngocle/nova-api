@@ -16,10 +16,10 @@ class CreateCharactersTable extends Migration
         Schema::create(config('constant.TBL.CHARACTER'), function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('attribute_id');
             $table->string('nickname')->unique();
             $table->text('bio')->nullable();
             $table->string('skin')->nullable()->comment('Url to image skin');
-            $table->unsignedInteger('attribute_id');
 
             // Level and job level
             $table->unsignedInteger('level');

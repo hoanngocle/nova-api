@@ -17,7 +17,6 @@ class CreateMasterCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->tinyInteger('status');
             $table->softDeletes();
         });
     }

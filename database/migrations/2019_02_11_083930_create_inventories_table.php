@@ -16,9 +16,9 @@ class CreateInventoriesTable extends Migration
         Schema::create(config('constant.TBL.INVENTORY'), function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('character_id');
-            $table->integer('slot');
-            $table->integer('category_id');
-            $table->integer('item_id');
+            $table->integer('category_id')->nullable();
+            $table->integer('position');
+            $table->integer('item_id')->nullable();
         });
     }
 

@@ -15,6 +15,11 @@ class CreateMasterItemsTable extends Migration
     {
         Schema::create('master_items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('attribute_id');
+            $table->string('code');
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }
