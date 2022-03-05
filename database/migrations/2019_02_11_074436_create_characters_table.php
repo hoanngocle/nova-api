@@ -22,15 +22,17 @@ class CreateCharactersTable extends Migration
             $table->string('skin')->nullable()->comment('Url to image skin');
 
             // Level and job level
-            $table->unsignedInteger('level');
-            $table->unsignedInteger('exp');
-            $table->unsignedInteger('job_pharmacist_level')->comment('luyện dược sư');
-            $table->unsignedInteger('job_pharmacist_exp')->comment('kinh nghiệm luyện dược sư');
-            $table->unsignedInteger('job_alchemist_level')->comment('luyện khí sư');
-            $table->unsignedInteger('job_alchemist_exp')->comment('kinh nghiệm luyện khí sư');
+            $table->unsignedInteger('level')->default(1);
+            $table->unsignedInteger('exp')->default(0);
+            $table->unsignedInteger('job_pharmacist_level')->default(0)->comment('luyện dược sư');
+            $table->unsignedInteger('job_pharmacist_exp')->default(0)->comment('kinh nghiệm luyện dược sư');
+            $table->unsignedInteger('job_alchemist_level')->default(0)->comment('luyện khí sư');
+            $table->unsignedInteger('job_alchemist_exp')->default(0)->comment('kinh nghiệm luyện khí sư');
 
-            // Inventory size
+            // Currency
             $table->unsignedInteger('inventory_size');
+            $table->unsignedBigInteger('gem')->comment('Linh thạch lưu thông');
+            $table->unsignedBigInteger('coin')->comment('Kim tệ lưu thông');
 
             // Time last login
             $table->timestamp('last_login');

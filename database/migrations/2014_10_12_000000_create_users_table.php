@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar', 255);
             $table->tinyInteger('gender')->nullable()->comment('0: Female, 1: Male');
             $table->datetime('dob')->nullable();
-            $table->string('address', 255)->nullable();
+            $table->text('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

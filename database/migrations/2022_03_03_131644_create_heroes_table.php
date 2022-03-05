@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create(config('constant.TBL.HERO'), function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('attribute_id');
             $table->string('name');
             $table->string('code');
             $table->text('bio');
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->tinyInteger('element')->comment('Các nguyên tố của các hero');
             $table->tinyInteger('type')->comment('Loại hero');
             $table->tinyInteger('status')->comment('0: prepare; 1: released');
-            $table->unsignedInteger('attribute_id');
             $table->timestamps();
             $table->softDeletes();
         });

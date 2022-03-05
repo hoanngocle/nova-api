@@ -29,6 +29,8 @@ return [
         'VAULT'     => 'vaults',
         'LOGIN_HISTORY' => 'login_histories',
         'IMAGE'     => 'images',
+        'ITEM'      => 'items',
+        'WEAPON'      => 'weapons',
         'HERO'     => 'heroes',
         'HERO_IMAGE'     => 'hero_images',
 
@@ -36,10 +38,8 @@ return [
     ],
     'MASTER_TBL' => [
         'CATEGORY'  => 'master_categories',
-        'ITEM'      => 'master_items',
-        'IMAGE'     => 'master_images',
         'EQUIPMENT' => 'master_equipments',
-        'LEVEL' => 'master_level',
+        'LEVEL'     => 'master_level',
         'JOB_LEVEL' => 'master_job_level',
     ]
 ];
