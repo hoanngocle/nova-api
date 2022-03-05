@@ -22,10 +22,11 @@ class UserFactory extends Factory
             'password' => Hash::make('password'),
             'nickname' => $this->faker->firstName() . ' ' . $this->faker->lastName(),
             'bio' => $this->faker->text(200),
-            'avatar' => Hash::make('password'),
-            'gender' => Hash::make('password'),
-            'dob' => Hash::make('password'),
-            'address' => Hash::make('password'),
+            'avatar' => 'images/avatar/avatar_' . $this->faker->numberBetween(1,11),
+            'gender' => $this->faker->numberBetween(0,1),
+            'dob' => $this->faker->dateTimeBetween('1980-01-01', '2012-12-31')
+                ->format('Y-m-d'),
+            'address' => $this->faker->address(),
             'remember_token' => Str::random(10),
         ];
     }
