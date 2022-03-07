@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create(config('constant.TBL.VAULT'), function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('character_id');
-            $table->integer('slot');
             $table->integer('category_id');
-            $table->integer('item_id');
+            $table->integer('position');
+            $table->integer('item_id')->nullable();
         });
     }
 
