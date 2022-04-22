@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create(config('constant.TBL.HERO'), function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->string('name')->unique();
             $table->text('bio');
             $table->string('avatar');
