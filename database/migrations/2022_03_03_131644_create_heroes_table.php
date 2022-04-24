@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->text('bio');
             $table->string('avatar');
-            $table->string('avatar_path');
             $table->tinyInteger('rarity')->comment('Độ hiếm của các hero');
             $table->tinyInteger('element')->comment('Các nguyên tố của các hero');
             $table->tinyInteger('type')->comment('Loại hero');

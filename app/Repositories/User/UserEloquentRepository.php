@@ -5,8 +5,6 @@ namespace App\Repositories\User;
 use App\Models\User;
 use App\Repositories\Base\BaseEloquentRepository;
 use Exception;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
 
 class UserEloquentRepository extends BaseEloquentRepository implements UserRepositoryInterface
 {

@@ -2,15 +2,15 @@
 
 namespace App\Enums;
 
-enum Rarity
+enum Rarity: int
 {
-    case COMMON;
-    case NORMAL;
-    case RARE;
-    case EPIC;
-    case UNIQUE;
-    case LEGENDARY;
-    case MYTHICAL;
+    case COMMON     = 1;
+    case NORMAL     = 2;
+    case RARE       = 3;
+    case EPIC       = 4;
+    case UNIQUE     = 5;
+    case LEGENDARY  = 6;
+    case MYTHICAL   = 7;
 
     public function color(): string
     {

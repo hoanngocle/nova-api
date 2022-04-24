@@ -19,6 +19,8 @@ class CreateMasterJobLevelTable extends Migration
             $table->unsignedInteger('level');
             $table->unsignedDouble('exp');
             $table->string('name');
+            $table->string('sub_name');
+            $table->string('state');
             $table->integer('effect');
             $table->string('rarity');
         });

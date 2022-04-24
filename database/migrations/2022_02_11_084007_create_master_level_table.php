@@ -18,6 +18,8 @@ class CreateMasterLevelTable extends Migration
             $table->unsignedInteger('level');
             $table->unsignedDouble('exp');
             $table->string('name');
+            $table->string('sub_name')->nullable();
+            $table->string('inner_state');
         });
     }
 
