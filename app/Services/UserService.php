@@ -27,9 +27,11 @@ class UserService
     public function processLogin($request): bool
     {
         $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
+            'email'     => $request->email,
+            'password'  => $request->password
         ];
+
+
         return auth()->attempt($credentials);
     }
 

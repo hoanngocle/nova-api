@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\UserStatusType;
+use App\Helpers\ServiceHelper;
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\UserResource;
@@ -26,17 +28,19 @@ class AuthController extends BaseController
 
     /**
      * @param LoginRequest $request
-     * @return JsonResponse
+     * @return array
      * @throws Exception
      */
-    public function login(LoginRequest $request): JsonResponse
+    public function login(LoginRequest $request): array
     {
-        $login = $this->userService->processLogin($request);
-        if ($login) {
-            $profile = $this->userService->getProfile();
-            $data = new UserResource($profile);
+        $user = $this->userService->processLogin($request);
+        if ($user->status === UserStatusType::ACTIVE) {
+                return \App\Utilities\ServiceHelper::auth(
+                    $user->createToken($user->uuid, [$ability])->plainTextToken
+                );
+            $token = $login->createToken(config('constant.BASE_TEXT_TOKEN'), [$ability])->plainTextToken;
 
-            return $this->handleResponse($data, __('auth.login.success'));
+            return ServiceHelper::auth($token);
         } else {
             return $this->handleError(__('auth.login.failed'), ['error' => __('auth.login.failed')]);
         }
