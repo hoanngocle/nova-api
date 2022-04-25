@@ -22,19 +22,17 @@ return [
     ],
     'TBL' => [
         'USER'          => 'users',
-        'CHARACTER'          => 'characters',
+        'CHARACTER'     => 'characters',
         'PROFILE'       => 'profiles',
-        'ATTRIBUTE'          => 'attribute',
+        'ATTRIBUTE'     => 'attribute',
         'INVENTORY'     => 'inventories',
-        'VAULT'     => 'vaults',
+        'VAULT'         => 'vaults',
         'LOGIN_HISTORY' => 'login_histories',
-        'IMAGE'     => 'images',
-        'ITEM'      => 'items',
-        'WEAPON'      => 'weapons',
-        'HERO'     => 'heroes',
-        'HERO_IMAGE'     => 'hero_images',
-
-
+        'IMAGE'         => 'images',
+        'ITEM'          => 'items',
+        'WEAPON'        => 'weapons',
+        'HERO'          => 'heroes',
+        'HERO_IMAGE'    => 'hero_images',
     ],
     'MASTER_TBL' => [
         'CATEGORY'  => 'master_categories',

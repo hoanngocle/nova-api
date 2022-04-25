@@ -50,9 +50,8 @@ class CreateCharactersTable extends Migration
             $table->unsignedInteger('level')->default(1);
             $table->unsignedBigInteger('exp')->default(0);
 
-            // Time last login
-            $table->timestamp('last_login');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

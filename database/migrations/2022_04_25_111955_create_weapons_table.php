@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(config('constant.TBL.ITEM'), function (Blueprint $table) {
+        Schema::create(config('constant.TBL.WEAPON'), function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('category_id');
-            $table->string('code')->unique();
             $table->string('name')->unique();
-            $table->text('description');
-            $table->unsignedInteger('price');
-            $table->unsignedInteger('discount');
+            $table->string('avatar')->nullable();
+            $table->string('avatar_path')->nullable();
+            $table->string('image_name')->nullable();
+            $table->string('image_path')->nullable();
 
             $table->tinyInteger('rarity')->nullable()->comment('Độ hiếm');
-            $table->tinyInteger('element')->nullable()->comment('Các nguyên tố');
+            $table->tinyInteger('element')->nullable()->comment('Loại vũ khí');
+            $table->unsignedInteger('price');
+            $table->unsignedInteger('discount')->default(0);
 
             $table->integer('attack')->nullable()->default(0);
             $table->integer('health')->nullable()->default(0);
@@ -42,7 +43,6 @@ return new class extends Migration
             $table->integer('effect_rate')->nullable()->comment('Tỷ lệ xuất hiện hiệu ứng');
             $table->integer('effect_value')->nullable()->comment('Giá trị xuất hiện của hiệu ứng');
 
-            $table->tinyInteger('is_comsume')->comment('0: Not comsume; 1: Consume');
             $table->tinyInteger('status')->comment('0: Inactive; 1: Active');
             $table->timestamps();
             $table->softDeletes();
@@ -56,6 +56,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('constant.TBL.ITEM'));
+        Schema::dropIfExists(config('constant.TBL.WEAPON'));
     }
 };
