@@ -31,8 +31,10 @@ class UserService
             'password'  => $request->password
         ];
 
+        $loginAttempt = auth()->attempt($credentials);
+        $token = $loginAttempt->createToken(config('constant.BASE_TEXT_TOKEN'), [$ability])->plainTextToken;
 
-        return auth()->attempt($credentials);
+        return $token;
     }
 
     /**

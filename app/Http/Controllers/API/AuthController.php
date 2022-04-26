@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Enums\UserStatusType;
+use App\Enums\UserStatus;
 use App\Helpers\ServiceHelper;
+use App\Http\Controllers\Controller as BaseController;
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
-use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller as BaseController;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -34,11 +32,7 @@ class AuthController extends BaseController
     public function login(LoginRequest $request): array
     {
         $user = $this->userService->processLogin($request);
-        if ($user->status === UserStatusType::ACTIVE) {
-                return \App\Utilities\ServiceHelper::auth(
-                    $user->createToken($user->uuid, [$ability])->plainTextToken
-                );
-            $token = $login->createToken(config('constant.BASE_TEXT_TOKEN'), [$ability])->plainTextToken;
+        if ($user->status === UserStatus::ACTIVE) {
 
             return ServiceHelper::auth($token);
         } else {

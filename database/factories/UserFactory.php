@@ -18,13 +18,14 @@ class UserFactory extends Factory
         return [
             'username'          => $this->faker->username(),
             'email'             => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'email_verified_at' => $this->faker->dateTime(),
             'password'          => Hash::make('password'),
             'bio'               => $this->faker->text(200),
-            'avatar'            => 'images/avatar/avatar_' . $this->faker->numberBetween(1,11),
+            'avatar'            => config('images.image_directory') . config('images.user.avatar_path') . 'avatar_' . $this->faker->numberBetween(1,11),
             'dob'               => $this->faker->dateTimeBetween('1980-01-01', '2012-12-31')->format('Y-m-d'),
             'address'           => $this->faker->address(),
-            'remember_token'    => Str::random(10),
+            'remember_token'    => $this->faker->regexify('[A-Za-z0-9]{20}'),
+            'role'              => $this->faker->numberBetween(1,2),
         ];
     }
 

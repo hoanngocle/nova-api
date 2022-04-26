@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,6 +24,13 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'email_verified_at',
+        'bio',
+        'avatar',
+        'dob',
+        'address',
+        'remember_token',
+        'role',
     ];
 
     /**
@@ -44,13 +52,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return HasOne
+     */
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function providers(): HasMany
     {
         return $this->hasMany(Provider::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->role == UserType::SUPER_ADMIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role == UserType::ADMIN;
     }
 }
