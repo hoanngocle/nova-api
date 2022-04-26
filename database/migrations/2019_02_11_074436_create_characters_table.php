@@ -27,8 +27,8 @@ class CreateCharactersTable extends Migration
             $table->integer('health')->default(0)->comment('Máu');
             $table->integer('defend')->default(0)->comment('Phòng thủ');
 
-            $table->unsignedFloat('eva')->default(0)->comment('Thân pháp');
-            $table->unsignedFloat('aim')->default(0)->comment('Chính xác');
+            $table->unsignedFloat('eva_rate')->default(0)->comment('Thân pháp');
+            $table->unsignedFloat('aim_rate')->default(0)->comment('Chính xác');
             $table->unsignedFloat('crit_rate')->default(0)->comment('Bonus tỉ lệ chí mạng');
             $table->unsignedFloat('crit_damage')->default(0)->comment('Bonus sát thương chí mạng');
 
