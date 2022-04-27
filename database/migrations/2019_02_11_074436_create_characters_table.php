@@ -27,8 +27,8 @@ class CreateCharactersTable extends Migration
             $table->integer('health')->default(0)->comment('Máu');
             $table->integer('defend')->default(0)->comment('Phòng thủ');
 
-            $table->unsignedFloat('eva_rate')->default(0)->comment('Thân pháp');
-            $table->unsignedFloat('aim_rate')->default(0)->comment('Chính xác');
+            $table->unsignedFloat('eva')->default(0)->comment('Thân pháp');
+            $table->unsignedFloat('aim')->default(0)->comment('Chính xác');
             $table->unsignedFloat('crit_rate')->default(0)->comment('Bonus tỉ lệ chí mạng');
             $table->unsignedFloat('crit_damage')->default(0)->comment('Bonus sát thương chí mạng');
 
@@ -45,6 +45,7 @@ class CreateCharactersTable extends Migration
 
             // Currency and Level
             $table->unsignedInteger('inventory_size');
+            $table->unsignedInteger('vault_size');
             $table->unsignedBigInteger('gem')->comment('Linh thạch lưu thông');
             $table->unsignedBigInteger('coin')->comment('Kim tệ lưu thông');
             $table->unsignedInteger('level')->default(1);

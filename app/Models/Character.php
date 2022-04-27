@@ -24,8 +24,8 @@ class Character extends Model
         'health',
         'defend',
 
-        'eva_rate',
-        'aim_rate',
+        'eva',
+        'aim',
         'crit_rate',
         'crit_damage',
         'exp_rate',

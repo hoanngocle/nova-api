@@ -30,8 +30,8 @@ return new class extends Migration
             $table->integer('health')->nullable()->default(0);
             $table->integer('defend')->nullable()->default(0);
 
-            $table->unsignedFloat('eva_rate')->nullable()->default(0)->comment('Thân pháp');
-            $table->unsignedFloat('aim_rate')->nullable()->default(0)->comment('Chính xác');
+            $table->unsignedFloat('eva')->nullable()->default(0)->comment('Thân pháp');
+            $table->unsignedFloat('aim')->nullable()->default(0)->comment('Chính xác');
             $table->unsignedFloat('crit_rate')->nullable()->default(0)->comment('Bonus tỉ lệ chí mạng');
             $table->unsignedFloat('crit_damage')->nullable()->default(0)->comment('Bonus sát thương chí mạng');
 
