@@ -40,6 +40,7 @@ class Character extends Model
         'job_alchemist_exp',
 
         'inventory_size',
+        'vault_size',
         'gem',
         'coin',
         'level',
