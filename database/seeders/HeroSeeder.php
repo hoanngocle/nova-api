@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Imports\HeroImport;
 use App\Models\Hero;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Maatwebsite\Excel\Facades\Excel;
 
