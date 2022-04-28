@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('attack')->nullable()->default(0);
             $table->integer('health')->nullable()->default(0);
             $table->integer('defend')->nullable()->default(0);
-
             $table->unsignedInteger('eva')->nullable()->default(0)->comment('Thân pháp');
             $table->unsignedInteger('aim')->nullable()->default(0)->comment('Chính xác');
             $table->unsignedInteger('crit_rate')->nullable()->default(0)->comment('Bonus tỉ lệ chí mạng');
@@ -27,8 +26,8 @@ return new class extends Migration
             $table->unsignedInteger('coin_rate')->nullable()->default(0)->comment('Tốc độ thu thập tiền');
             $table->unsignedInteger('effect_rate')->nullable()->comment('Tỷ lệ xuất hiện hiệu ứng');
             $table->unsignedInteger('effect_value')->nullable()->comment('Giá trị xuất hiện của hiệu ứng');
-            $table->unsignedInteger('sale_price')->comment('Giá bán ra');
-            $table->unsignedInteger('buy_price')->comment('Giá mua vào');
+            $table->unsignedInteger('sale_price')->nullable()->comment('Giá bán ra');
+            $table->unsignedInteger('buy_price')->nullable()->comment('Giá mua vào');
 
             $table->timestamps();
         });
