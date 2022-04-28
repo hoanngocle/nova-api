@@ -28,8 +28,6 @@ return new class extends Migration
             $table->unsignedInteger('effect_value')->nullable()->comment('Giá trị xuất hiện của hiệu ứng');
             $table->unsignedInteger('sale_price')->nullable()->comment('Giá bán ra');
             $table->unsignedInteger('buy_price')->nullable()->comment('Giá mua vào');
-
-            $table->timestamps();
         });
     }
 
