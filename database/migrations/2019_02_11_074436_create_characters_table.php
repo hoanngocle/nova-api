@@ -27,15 +27,15 @@ class CreateCharactersTable extends Migration
             $table->integer('health')->default(0)->comment('Máu');
             $table->integer('defend')->default(0)->comment('Phòng thủ');
 
-            $table->unsignedFloat('eva')->default(0)->comment('Thân pháp');
-            $table->unsignedFloat('aim')->default(0)->comment('Chính xác');
-            $table->unsignedFloat('crit_rate')->default(0)->comment('Bonus tỉ lệ chí mạng');
-            $table->unsignedFloat('crit_damage')->default(0)->comment('Bonus sát thương chí mạng');
+            $table->unsignedInteger('eva')->default(0)->comment('Thân pháp');
+            $table->unsignedInteger('aim')->default(0)->comment('Chính xác');
+            $table->unsignedInteger('crit_rate')->default(0)->comment('Bonus tỉ lệ chí mạng');
+            $table->unsignedInteger('crit_damage')->default(0)->comment('Bonus sát thương chí mạng');
 
-            $table->unsignedFloat('exp_rate')->default(0)->comment('Tốc độ tu luyện');
-            $table->unsignedFloat('coin_rate')->default(0)->comment('Tốc độ thu thập tiền');
-            $table->unsignedFloat('gem_rate')->default(0)->comment('Tốc độ thu thập linh thạch');
-            $table->unsignedFloat('spirit_rate')->default(0)->comment('Tốc độ thu thập linh hồn');
+            $table->unsignedInteger('exp_rate')->default(0)->comment('Tốc độ tu luyện');
+            $table->unsignedInteger('coin_rate')->default(0)->comment('Tốc độ thu thập tiền');
+            $table->unsignedInteger('gem_rate')->default(0)->comment('Tốc độ thu thập linh thạch');
+            $table->unsignedInteger('spirit_rate')->default(0)->comment('Tốc độ thu thập linh hồn');
 
             // Level and job level
             $table->unsignedInteger('job_pharmacist_level')->default(0)->comment('luyện dược sư');
