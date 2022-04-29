@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Enums\UserStatus;
+use App\Enums\UserType;
+use App\Helpers\ServiceHelper;
 use App\Repositories\User\UserRepositoryInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
 
 class UserService
@@ -21,24 +21,18 @@ class UserService
     }
 
     /**
-     * @param $request
-     * @return bool
-     * @throws Exception
+     * @param $credentials
+     * @return array
      */
-    public function processLogin($request): bool
+    public function processLogin($credentials): array
     {
-        $credentials = [
-            'email'     => $request->email,
-            'password'  => $request->password
-        ];
-
         $loginAttempt = auth()->attempt($credentials);
-        if ($loginAttempt && $loginAttempt->status === UserStatus::ACTIVE) {
-            dd('123');
-            return $loginAttempt->createToken(config('constant.BASE_TEXT_TOKEN'), [$ability])->plainTextToken;
-        } else {
-            return false;
+        if (!$loginAttempt) {
+            return ServiceHelper::authFailed();
         }
+
+        $token = auth()->user()->createToken(config('constant.BASE_TEXT_TOKEN'), [$this->getAbility()])->plainTextToken;
+        return ServiceHelper::auth($token);
     }
 
     /**
@@ -101,5 +95,19 @@ class UserService
         $input['password'] = bcrypt($request['password']);
 
         return $this->userRepository->create($input);
+    }
+
+    /**
+     * Get Ability of user
+     *
+     * @return string
+     */
+    private function getAbility(): string
+    {
+        return match (auth()->user()->role) {
+            UserType::SUPER_ADMIN->value   => 'super-admin-access',
+            UserType::ADMIN->value         => 'admin-access',
+            UserType::MEMBER->value        => 'member-access',
+        };
     }
 }

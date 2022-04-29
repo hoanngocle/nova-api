@@ -44,7 +44,7 @@ class ServiceHelper
             [
                 'success'   => false,
                 'code'      => Response::HTTP_UNAUTHORIZED,
-                'message'   => __('auth.login.failed')
+                'message'   => __('auth.login.error')
             ];
     }
 

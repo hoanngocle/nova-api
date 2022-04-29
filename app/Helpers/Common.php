@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\UserStatus;
+use App\Enums\UserType;
+
 if (!function_exists('getLocale')) {
     function getLocale()
     {
@@ -207,19 +210,16 @@ if (!function_exists('randomString')) {
     }
 }
 
-if (!function_exists('getFullQuery')) {
-    /**
-     * @param $builder
-     * @return null|string|string[]
-     */
-    function getFullQuery($builder)
+if (!function_exists('isAdmin')) {
+    function isAdmin(): bool
     {
-        $sql = $builder->toSql();
-        foreach ($builder->getBindings() as $binding) {
-            $value = is_numeric($binding) ? $binding : "'" . $binding . "'";
-            $sql = preg_replace('/\?/', $value, $sql, 1);
-        }
-        return $sql;
+        return auth()->user()->role === UserType::ADMIN->value;
     }
 }
 
+if (!function_exists('isActive')) {
+    function isActive(): bool
+    {
+        return auth()->user()->status === UserStatus::ACTIVE->value;
+    }
+}

@@ -26,18 +26,14 @@ class AuthController extends BaseController
 
     /**
      * @param LoginRequest $request
-     * @return array
+     * @return JsonResponse
      * @throws Exception
      */
-    public function login(LoginRequest $request): array
+    public function login(LoginRequest $request): JsonResponse
     {
-        $user = $this->userService->processLogin($request);
+        $result = $this->userService->processLogin($request->validated());
 
-        if ($user) {
-            return ServiceHelper::auth($token);
-        } else {
-            return ServiceHelper::authFailed();
-        }
+        return response()->json($result, $result['code']);
     }
 
     /**

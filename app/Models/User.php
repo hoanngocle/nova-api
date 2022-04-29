@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\UserType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -13,8 +12,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-    private mixed $role;
 
     protected static function boot()
     {
@@ -76,21 +73,5 @@ class User extends Authenticatable
     public function providers(): HasMany
     {
         return $this->hasMany(Provider::class, 'user_id', 'id');
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSuperAdmin(): bool
-    {
-        return $this->role == UserType::SUPER_ADMIN;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAdmin(): bool
-    {
-        return $this->role == UserType::ADMIN;
     }
 }
