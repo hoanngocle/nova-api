@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Hero extends Model
+class Attribute extends Model
 {
     use HasFactory;
 
@@ -16,12 +15,6 @@ class Hero extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'bio',
-        'avatar',
-        'rarity',
-        'element',
-        'type',
         'attack',
         'health',
         'defend',
@@ -31,14 +24,9 @@ class Hero extends Model
         'crit_damage',
         'exp_rate',
         'coin_rate',
-        'status',
+        'effect_rate',
+        'effect_value',
+        'sale_price',
+        'buy_price',
     ];
-
-    /**
-     * @return HasOne
-     */
-    public function attribute(): HasOne
-    {
-        return $this->hasOne(Attribute::class);
-    }
 }

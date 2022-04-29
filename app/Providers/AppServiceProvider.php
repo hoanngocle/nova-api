@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
         $repositories = [
             'Base',
             'User',
-            'Set', 'Course', 'Term'
+            'Hero',
         ];
         foreach ($repositories as $repo) {
             $this->app->bind('App\\Repositories\\' . $repo . '\\' . $repo . 'RepositoryInterface',

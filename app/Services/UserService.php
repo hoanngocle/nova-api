@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\UserStatus;
 use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -32,9 +33,12 @@ class UserService
         ];
 
         $loginAttempt = auth()->attempt($credentials);
-        $token = $loginAttempt->createToken(config('constant.BASE_TEXT_TOKEN'), [$ability])->plainTextToken;
-
-        return $token;
+        if ($loginAttempt && $loginAttempt->status === UserStatus::ACTIVE) {
+            dd('123');
+            return $loginAttempt->createToken(config('constant.BASE_TEXT_TOKEN'), [$ability])->plainTextToken;
+        } else {
+            return false;
+        }
     }
 
     /**

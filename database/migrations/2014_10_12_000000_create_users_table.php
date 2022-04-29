@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Gender;
+use App\Enums\UserStatus;
 use App\Enums\UserType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

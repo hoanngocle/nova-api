@@ -26,6 +26,7 @@ class UserFactory extends Factory
             'address'           => $this->faker->address(),
             'remember_token'    => $this->faker->regexify('[A-Za-z0-9]{20}'),
             'role'              => $this->faker->numberBetween(1,2),
+            'status'            => $this->faker->numberBetween(0,2),
         ];
     }
 

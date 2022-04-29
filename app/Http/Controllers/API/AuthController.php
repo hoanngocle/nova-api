@@ -32,11 +32,11 @@ class AuthController extends BaseController
     public function login(LoginRequest $request): array
     {
         $user = $this->userService->processLogin($request);
-        if ($user->status === UserStatus::ACTIVE) {
 
+        if ($user) {
             return ServiceHelper::auth($token);
         } else {
-            return $this->handleError(__('auth.login.failed'), ['error' => __('auth.login.failed')]);
+            return ServiceHelper::authFailed();
         }
     }
 

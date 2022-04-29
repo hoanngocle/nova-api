@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\HeroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,19 +27,12 @@ Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('profile', [AuthController::class, 'profile'])->name('user.profile');
 
-        Route::group(['prefix' => 'master'], function () {
-            // Test commit
-            Route::group(['prefix' => 'heroes'], function () {
-//                Route::get('/', [SetController::class, 'index'])->name('set.list');
-//                Route::get('/list', [SetController::class, 'getListSetByCourse'])->name('set.list.by-course');
-//                Route::get('/detail', [SetController::class, 'detail'])->name('set.detail');
-            });
+        Route::controller(HeroController::class)->prefix('heroes')->group(function () {
+            Route::get('', 'index')->name('hero.list');
+            Route::get('detail', 'detail')->name('hero.detail');
+            Route::post('create', 'create')->name('hero.create');
+            Route::post('update', 'update')->name('hero.update');
+            Route::delete('delete', 'store')->name('hero.delete');
         });
-//
-
-//
-//        Route::group(['prefix' => 'term'], function () {
-//            Route::get('/', [TermController::class, 'getListTermBySet'])->name('term.list.by-set');
-//        });
 });
 
