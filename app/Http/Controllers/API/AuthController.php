@@ -42,12 +42,9 @@ class AuthController extends BaseController
      */
     public function logout(): JsonResponse
     {
-        $response = $this->userService->logout();
-        if ($response) {
-            return $this->handleResponse($response, __('auth.logout.success'));
-        } else {
-            return $this->handleError(__('auth.logout.error'), ['error' => __('auth.logout.error')]);
-        }
+        $result = $this->userService->logout();
+
+        return response()->json($result, $result['code']);
     }
 
     /**

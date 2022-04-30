@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Enums\UserType;
 use App\Helpers\ServiceHelper;
 use App\Repositories\User\UserRepositoryInterface;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserService
 {
@@ -38,9 +38,14 @@ class UserService
     /**
      * Destroy all sessions for the current logged-in user
      */
-    public function logout()
+    public function logout(): array
     {
-        return auth()->user()->tokens()->delete();
+        $response = auth()->user()->tokens()->delete();
+        if ($response) {
+            return ServiceHelper::message(__('auth.logout.success'));
+        } else {
+            return ServiceHelper::failed(Response::HTTP_BAD_REQUEST, __('auth.logout.error'));
+        }
     }
 
     /**
