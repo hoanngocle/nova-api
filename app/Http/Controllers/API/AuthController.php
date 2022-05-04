@@ -59,18 +59,14 @@ class AuthController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param RegisterRequest $request
      * @return JsonResponse
      */
     public function register(RegisterRequest $request): JsonResponse
     {
-        $user = $this->userService->registerUser($request);
-        if ($user) {
-            $data = new UserResource($user);
-            return $this->handleResponse($data, __('auth.profile.success'));
-        } else {
-            return $this->handleError(__('auth.profile.error'), ['error' => __('auth.profile.error')]);
-        }
+        $result = $this->userService->registerUser($request);
+
+        return response()->json($result, $result['code']);
     }
 
     /**

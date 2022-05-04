@@ -102,8 +102,15 @@ class UserService
     {
         $input = $request->all();
         $input['password'] = bcrypt($request['password']);
+        $input['role'] = UserType::MEMBER->value;
+        $response = $this->userRepository->create($input);
 
-        return $this->userRepository->create($input);
+        if ($response) {
+            $data = new UserResource($response);
+            return ServiceHelper::createdWithData('User', $data);
+        } else {
+            return ServiceHelper::failed();
+        }
     }
 
     /**
