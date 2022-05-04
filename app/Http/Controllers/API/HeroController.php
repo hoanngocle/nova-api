@@ -13,6 +13,7 @@ class HeroController extends Controller
     }
 
     public function index() {
+
         return 'list';
     }
 

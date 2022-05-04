@@ -112,18 +112,4 @@ class UserService
             return ServiceHelper::failed();
         }
     }
-
-    /**
-     * Get Ability of user
-     *
-     * @return string
-     */
-    private function getAbility(): string
-    {
-        return match (auth()->user()->role) {
-            UserType::SUPER_ADMIN->value   => 'super-admin-access',
-            UserType::ADMIN->value         => 'admin-access',
-            UserType::MEMBER->value        => 'member-access',
-        };
-    }
 }
