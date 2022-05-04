@@ -2,8 +2,11 @@
 
 namespace App\Http\Resources\User;
 
+use App\Enums\UserStatus;
+use App\Enums\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class UserResource extends JsonResource
 {
@@ -16,9 +19,16 @@ class UserResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'token'     => $this->createToken(config('constant.BASE_TEXT_TOKEN'))->plainTextToken,
-            'username'  => $this->username,
-            'profile'   => $this->profile,
+            'username'      => $this->username,
+            'email'         => $this->email,
+            'bio'           => $this->bio,
+            'avatar'        => $this->avatar,
+            'dob'           => Carbon::parse($this->dob)->format('Y-m-d'),
+            'address'       => $this->address,
+            'role'          => UserType::from($this->role)->text(),
+            'status'        => UserStatus::from($this->status)->text(),
+            'created_at'    => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
+            'deleted_at'    => $this->deleted_at,
         ];
     }
 }

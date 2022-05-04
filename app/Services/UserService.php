@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\UserType;
 use App\Helpers\ServiceHelper;
+use App\Http\Resources\User\UserResource;
 use App\Repositories\User\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,7 +32,7 @@ class UserService
             return ServiceHelper::authFailed();
         }
 
-        $token = auth()->user()->createToken(config('constant.BASE_TEXT_TOKEN'), [$this->getAbility()])->plainTextToken;
+        $token = auth()->user()->createToken(config('constant.BASE_TEXT_TOKEN'), [UserType::from(auth()->user()->role)->ability()])->plainTextToken;
         return ServiceHelper::auth($token);
     }
 
@@ -54,8 +55,11 @@ class UserService
      */
     public function getProfile()
     {
-        $idUser = auth()->user();
-        return $this->userRepository->find($idUser);
+        if (auth()->user()) {
+            return ServiceHelper::data(new UserResource(auth()->user()));
+        } else {
+            return ServiceHelper::failed(Response::HTTP_BAD_REQUEST, __('auth.profile.error'));
+        }
     }
 
     /**

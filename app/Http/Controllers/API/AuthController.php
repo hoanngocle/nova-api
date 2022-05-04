@@ -53,12 +53,9 @@ class AuthController extends BaseController
      */
     public function profile(): JsonResponse
     {
-        $response = $this->userService->getProfile();
-        if ($response) {
-            return $this->handleResponse($response, __('auth.profile.success'));
-        } else {
-            return $this->handleError(__('auth.profile.error'), ['error' => __('auth.profile.error')]);
-        }
+        $result = $this->userService->getProfile();
+
+        return response()->json($result, $result['code']);
     }
 
     /**

@@ -21,8 +21,17 @@ enum UserType: int
     {
         return match ($this) {
             self::MEMBER        => 'Người Chơi',
-            self::ADMIN         => 'Thiên Hành Giả',
-            self::SUPER_ADMIN   => 'Chưởng Khống Giả',
+            self::ADMIN         => 'Chưởng Khống Giả',
+            self::SUPER_ADMIN   => 'Sáng Thế Thần',
+        };
+    }
+
+    public function ability(): string
+    {
+        return match ($this) {
+            UserType::SUPER_ADMIN    => 'super-admin-access',
+            UserType::ADMIN          => 'admin-access',
+            UserType::MEMBER         => 'member-access',
         };
     }
 }
