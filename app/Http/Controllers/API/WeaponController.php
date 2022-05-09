@@ -1,85 +1,48 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CommonListRequest;
+use App\Services\WeaponService;
 
 class WeaponController extends Controller
 {
+    protected WeaponService $weaponService;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param WeaponService $weaponService
      */
-    public function index()
+    public function __construct(WeaponService $weaponService)
     {
-        //
+        $this->weaponService = $weaponService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Get list of weapon
      *
-     * @return \Illuminate\Http\Response
+     * @param CommonListRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function index(CommonListRequest $request)
     {
-        //
+        $result = $this->weaponService->getList($request->validated());
+
+        return response()->json($result, $result['code']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function detail()
     {
-        //
+        return 'detail';
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function store()
     {
-        //
+        return 'add';
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function delete()
     {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
