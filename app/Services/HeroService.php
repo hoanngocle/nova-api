@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Helpers\ServiceHelper;
+use App\Http\Resources\Hero\HeroResource;
 use App\Repositories\Hero\HeroRepositoryInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class HeroService
 {
@@ -20,31 +22,22 @@ class HeroService
     }
 
     /**
-     * @param $request
-     * @return bool
-     * @throws Exception
-     */
-    public function processLogin($request): bool
-    {
-
-    }
-
-    /**
-     * Destroy all sessions for the current logged-in hero
-     */
-    public function logout()
-    {
-        return auth()->hero()->tokens()->delete();
-    }
-
-    /**
-     * Get profile of hero
+     * Get list hero
      *
      */
-    public function getProfile()
+    public function getList($params): array
     {
-        $idHero = auth()->hero();
-        return $this->heroRepository->find($idHero);
+        try {
+            if (isset($params['keyword'])) {
+                $response = $this->heroRepository->listSearch($params);
+            } else {
+                $response = $this->heroRepository->paginate($params);
+            }
+
+            return ServiceHelper::paginatedData(HeroResource::collection($response));
+        } catch (\Exception $e) {
+            return ServiceHelper::serverError($e);
+        }
     }
 
     /**

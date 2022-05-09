@@ -51,9 +51,8 @@ class UserService
 
     /**
      * Get profile of user
-     *
      */
-    public function getProfile()
+    public function getProfile(): array
     {
         if (auth()->user()) {
             return ServiceHelper::data(new UserResource(auth()->user()));

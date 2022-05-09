@@ -210,16 +210,11 @@ if (!function_exists('randomString')) {
     }
 }
 
-if (!function_exists('isAdmin')) {
-    function isAdmin(): bool
+if (! function_exists('escapeLike')) {
+    function escapeLike($string): array|string
     {
-        return auth()->user()->role === UserType::ADMIN->value;
-    }
-}
-
-if (!function_exists('isActive')) {
-    function isActive(): bool
-    {
-        return auth()->user()->status === UserStatus::ACTIVE->value;
+        $search = array('%', '_');
+        $replace = array('\%', '\_');
+        return str_replace($search, $replace, $string);
     }
 }

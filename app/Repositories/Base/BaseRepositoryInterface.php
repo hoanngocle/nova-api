@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Base;
 
+use App\DataTransferObjects\CommonListRequestData;
+
 /**
  * Interface BaseRepositoryInterface
  * @package App\Repositories\Base
@@ -111,17 +113,17 @@ interface BaseRepositoryInterface
     public function last(): mixed;
 
     /**
-     * @param $sortBy
-     * @param $perPage
+     * @param $params
      * @return mixed
      */
-    public function paginate($sortBy, $perPage): mixed;
+    public function paginate($params): mixed;
 
     /**
      * @param $locale
      * @param $sortBy
+     * @param $sortOrder
      * @param $perPage
      * @return mixed
      */
-    public function paginateLocale($locale, $sortBy, $perPage): mixed;
+    public function paginateLocale($locale, $sortBy, $sortOrder, $perPage): mixed;
 }

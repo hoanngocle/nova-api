@@ -7,6 +7,9 @@ return [
         'google',
         'github'
     ],
+    'PER_PAGE'      => 50,
+    'SORT_BY'       => 'id',
+    'SORT_ORDER'    => 'asc',
     // HTTP Status code
     'HTTP_CODE' => [
         'SUCCESS'               => 200,
