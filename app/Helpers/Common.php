@@ -1,7 +1,7 @@
 <?php
 
-use App\Enums\UserStatus;
-use App\Enums\UserType;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 if (!function_exists('getLocale')) {
     function getLocale()
@@ -216,5 +216,12 @@ if (! function_exists('escapeLike')) {
         $search = array('%', '_');
         $replace = array('\%', '\_');
         return str_replace($search, $replace, $string);
+    }
+}
+
+if (!function_exists('isNotEmptyInArray')) {
+    function isNotEmptyInArray(array $array, string $key) :bool
+    {
+        return Arr::exists($array, $key) && Str::of($array[$key])->trim()->isNotEmpty();
     }
 }

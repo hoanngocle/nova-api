@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Attribute extends Model
 {
@@ -29,4 +30,9 @@ class Attribute extends Model
         'sale_price',
         'buy_price',
     ];
+
+    public function hero(): BelongsTo
+    {
+        return $this->belongsTo(Hero::class);
+    }
 }

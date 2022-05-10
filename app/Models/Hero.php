@@ -39,6 +39,6 @@ class Hero extends Model
      */
     public function attribute(): HasOne
     {
-        return $this->hasOne(Attribute::class);
+        return $this->hasOne(Attribute::class, 'id', 'attribute_id');
     }
 }

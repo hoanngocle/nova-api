@@ -26,11 +26,7 @@ class HeroService
     public function getList($params): array
     {
         try {
-            if (isset($params['keyword'])) {
-                $response = $this->heroRepository->listSearch($params);
-            } else {
-                $response = $this->heroRepository->paginate($params);
-            }
+            $response = $this->heroRepository->listSearch($params);
 
             return ServiceHelper::paginatedData(HeroResource::collection($response));
         } catch (\Exception $e) {

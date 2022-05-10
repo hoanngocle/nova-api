@@ -24,8 +24,10 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
     public function listSearch($params): mixed
     {
         $params = $this->transferData($params);
-        return $this->_model->where('id', 'like', "%{$params['keyword']}%")
-            ->orWhere('name', 'like', "%{$params['keyword']}%")
+        return $this->_model->when(isNotEmptyInArray($params, 'keyword') ,function ($subQuery) use ($params) {
+            $subQuery->where('id', 'like', "%{$params['keyword']}%")
+                ->orWhere('name', 'like', "%{$params['keyword']}%");
+            })->with('attribute')
             ->orderBy($params['sort_by'], $params['sort_order'])
             ->paginate($params['per_page']);
     }
