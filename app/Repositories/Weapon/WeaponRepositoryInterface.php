@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Hero;
+namespace App\Repositories\Weapon;
 
 use App\Repositories\Base\BaseRepositoryInterface;
 
-interface HeroRepositoryInterface extends BaseRepositoryInterface
+interface WeaponRepositoryInterface extends BaseRepositoryInterface
 {
     /**
      * @param $params

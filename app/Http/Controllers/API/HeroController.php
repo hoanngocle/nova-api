@@ -3,29 +3,39 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommonListRequest;
+use App\Http\Requests\Hero\HeroListRequest;
+use App\Services\HeroService;
 use Illuminate\Http\Request;
 
 class HeroController extends Controller
 {
-    public function __construct()
+    protected HeroService $heroService;
+
+    public function __construct(HeroService $heroService)
     {
-
+        $this->heroService = $heroService;
     }
 
-    public function index() {
+    public function index(CommonListRequest $request)
+    {
+        $result = $this->heroService->getList($request->validated());
 
-        return 'list';
+        return response()->json($result, $result['code']);
     }
 
-    public function detail() {
+    public function detail()
+    {
         return 'detail';
     }
 
-    public function store() {
+    public function store()
+    {
         return 'add';
     }
 
-    public function delete() {
+    public function delete()
+    {
 
     }
 }

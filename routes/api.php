@@ -29,10 +29,10 @@ Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
 
         Route::controller(HeroController::class)->prefix('heroes')->group(function () {
             Route::get('', 'index')->name('hero.list');
-            Route::get('detail', 'detail')->name('hero.detail');
+            Route::get('{id}', 'detail')->name('hero.detail');
             Route::post('create', 'create')->name('hero.create');
-            Route::post('update', 'update')->name('hero.update');
-            Route::delete('delete', 'store')->name('hero.delete');
+            Route::post('{id}/update', 'update')->name('hero.update');
+            Route::delete('{id}', 'store')->name('hero.delete');
         });
 });
 

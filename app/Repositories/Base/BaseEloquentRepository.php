@@ -194,23 +194,35 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param $sortBy
-     * @param $perPage
+     * @param $params
      * @return mixed
      */
-    public function paginate($sortBy, $perPage): mixed
+    public function paginate($params): mixed
     {
-        return $this->_model->orderBy($sortBy, 'ASC')->paginate($perPage);
+        $params = $this->transferData($params);
+        return $this->_model->orderBy($params['sort_by'], $params['sort_order'])->paginate($params['per_page']);
     }
 
     /**
      * @param $locale
      * @param $sortBy
+     * @param $sortOrder
      * @param $perPage
      * @return mixed
      */
-    public function paginateLocale($locale, $sortBy, $perPage): mixed
+    public function paginateLocale($locale, $sortBy, $sortOrder, $perPage): mixed
     {
-        return $this->_model->translateOrDefault($locale)->orderBy($sortBy, 'ASC')->paginate($perPage);
+        return $this->_model->translateOrDefault($locale)->orderBy($sortBy, $sortOrder)->paginate($perPage);
+    }
+
+    /**
+     * @param $params
+     */
+    public function transferData($params) {
+        $params['sort_by']     = $params['sort_by'] ?? config('constant.SORT_BY');
+        $params['sort_order']  = $params['sort_order'] ?? config('constant.SORT_ORDER');
+        $params['per_page']    = $params['per_page'] ?? config('constant.PER_PAGE');
+
+        return $params;
     }
 }

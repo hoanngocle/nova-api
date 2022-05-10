@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Hero extends Model
+class Weapon extends Model
 {
     use HasFactory;
 
@@ -39,6 +39,6 @@ class Hero extends Model
      */
     public function attribute(): HasOne
     {
-        return $this->hasOne(Attribute::class, 'id', 'attribute_id');
+        return $this->hasOne(Attribute::class);
     }
 }

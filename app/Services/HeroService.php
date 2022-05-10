@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use App\Helpers\ServiceHelper;
+use App\Http\Resources\Hero\HeroResource;
 use App\Repositories\Hero\HeroRepositoryInterface;
-use Exception;
-use Illuminate\Http\JsonResponse;
 
 class HeroService
 {
@@ -20,49 +20,18 @@ class HeroService
     }
 
     /**
-     * @param $request
-     * @return bool
-     * @throws Exception
-     */
-    public function processLogin($request): bool
-    {
-
-    }
-
-    /**
-     * Destroy all sessions for the current logged-in hero
-     */
-    public function logout()
-    {
-        return auth()->hero()->tokens()->delete();
-    }
-
-    /**
-     * Get profile of hero
+     * Get list hero
      *
      */
-    public function getProfile()
+    public function getList($params): array
     {
-        $idHero = auth()->hero();
-        return $this->heroRepository->find($idHero);
-    }
+        try {
+            $response = $this->heroRepository->listSearch($params);
 
-    /**
-     * Validate provider (facebook, google, github)
-     *
-     * @param $provider
-     * @return JsonResponse|null
-     */
-    public function validateProvider($provider): ?JsonResponse
-    {
-        if (!in_array($provider, config("constant.SOCIAL_ARRAY"))) {
-            return response()->json(
-                ['error' => __("auth.provider.error")],
-                config("constant.HTTP_CODE.UNPROCESSABLE")
-            );
+            return ServiceHelper::paginatedData(HeroResource::collection($response));
+        } catch (\Exception $e) {
+            return ServiceHelper::serverError($e);
         }
-
-        return null;
     }
 
     /**
@@ -70,24 +39,16 @@ class HeroService
      *
      * @param $provider
      * @param $hero
-     * @return mixed
+     * @return array
      */
-    public function firstOrCreateHero($provider, $hero): mixed
+    public function getDetail($id): array
     {
-        return $this->heroRepository->firstOrCreateHero($provider, $hero);
-    }
+        try {
+            $response = $this->heroRepository->getHero();
 
-    /**
-     * Create new hero
-     *
-     * @param $request
-     * @return mixed
-     */
-    public function registerHero($request): mixed
-    {
-        $input = $request->all();
-        $input['password'] = bcrypt($request['password']);
-
-        return $this->heroRepository->create($input);
+            return ServiceHelper::paginatedData(new HeroResource($response));
+        } catch (\Exception $e) {
+            return ServiceHelper::serverError($e);
+        }
     }
 }

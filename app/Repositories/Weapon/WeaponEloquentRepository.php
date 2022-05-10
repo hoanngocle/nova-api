@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories\Hero;
+namespace App\Repositories\Weapon;
 
-use App\Models\Hero;
+use App\Models\Weapon;
 use App\Repositories\Base\BaseEloquentRepository;
 use Exception;
 
-class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepositoryInterface
+class WeaponEloquentRepository extends BaseEloquentRepository implements WeaponRepositoryInterface
 {
     /**
      * get model
@@ -14,7 +14,7 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
      */
     public function getModel(): string
     {
-        return Hero::class;
+        return Weapon::class;
     }
 
     /**
@@ -24,10 +24,8 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
     public function listSearch($params): mixed
     {
         $params = $this->transferData($params);
-        return $this->_model->when(isNotEmptyInArray($params, 'keyword') ,function ($subQuery) use ($params) {
-            $subQuery->where('id', 'like', "%{$params['keyword']}%")
-                ->orWhere('name', 'like', "%{$params['keyword']}%");
-            })->with('attribute')
+        return $this->_model->where('id', 'like', "%{$params['keyword']}%")
+            ->orWhere('name', 'like', "%{$params['keyword']}%")
             ->orderBy($params['sort_by'], $params['sort_order'])
             ->paginate($params['per_page']);
     }
