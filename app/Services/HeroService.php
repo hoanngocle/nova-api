@@ -39,10 +39,16 @@ class HeroService
      *
      * @param $provider
      * @param $hero
-     * @return mixed
+     * @return array
      */
-    public function firstOrCreateHero($provider, $hero): mixed
+    public function getDetail($id): array
     {
-        return $this->heroRepository->firstOrCreateHero($provider, $hero);
+        try {
+            $response = $this->heroRepository->getHero();
+
+            return ServiceHelper::paginatedData(new HeroResource($response));
+        } catch (\Exception $e) {
+            return ServiceHelper::serverError($e);
+        }
     }
 }
