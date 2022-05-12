@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Hero extends Model
@@ -40,5 +41,13 @@ class Hero extends Model
     public function attribute(): HasOne
     {
         return $this->hasOne(Attribute::class, 'id', 'attribute_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(HeroImage::class);
     }
 }
