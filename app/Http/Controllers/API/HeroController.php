@@ -6,36 +6,82 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonListRequest;
 use App\Http\Requests\Hero\HeroListRequest;
 use App\Services\HeroService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class HeroController extends Controller
 {
+    /**
+     * @var HeroService
+     */
     protected HeroService $heroService;
 
+    /**
+     * @param HeroService $heroService
+     */
     public function __construct(HeroService $heroService)
     {
         $this->heroService = $heroService;
     }
 
-    public function index(CommonListRequest $request)
+    /**
+     * Get list of hero
+     *
+     * @param CommonListRequest $request
+     * @return JsonResponse
+     */
+    public function index(CommonListRequest $request): JsonResponse
     {
         $result = $this->heroService->getList($request->validated());
 
         return response()->json($result, $result['code']);
     }
 
-    public function detail()
+    /**
+     * Get detail of hero
+     *
+     * @return JsonResponse
+     */
+    public function detail($id): JsonResponse
     {
-        return 'detail';
+        $result = $this->heroService->getDetail($id);
+
+        return response()->json($result, $result['code']);
     }
 
-    public function store()
+    /**
+     * Create new hero
+     *
+     * @return JsonResponse
+     */
+    public function store(): JsonResponse
     {
-        return 'add';
+        $result = $this->heroService->create();
+
+        return response()->json($result, $result['code']);
     }
 
-    public function delete()
+    /**
+     * Update a hero
+     *
+     * @return JsonResponse
+     */
+    public function update(): JsonResponse
     {
+        $result = $this->heroService->update();
 
+        return response()->json($result, $result['code']);
+    }
+
+    /**
+     * Delete a hero
+     *
+     * @return JsonResponse
+     */
+    public function delete(): JsonResponse
+    {
+        $result = $this->heroService->delete();
+
+        return response()->json($result, $result['code']);
     }
 }
