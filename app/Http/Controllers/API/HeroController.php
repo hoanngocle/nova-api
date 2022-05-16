@@ -23,6 +23,8 @@ class HeroController extends Controller
     }
 
     /**
+     * Get list of hero
+     *
      * @param CommonListRequest $request
      * @return JsonResponse
      */
@@ -33,18 +35,51 @@ class HeroController extends Controller
         return response()->json($result, $result['code']);
     }
 
-    public function detail()
+    /**
+     * Get detail of hero
+     *
+     * @return JsonResponse
+     */
+    public function detail($id): JsonResponse
     {
-        return 'detail';
+        $result = $this->heroService->getDetail($id);
+
+        return response()->json($result, $result['code']);
     }
 
-    public function store()
+    /**
+     * Create new hero
+     *
+     * @return JsonResponse
+     */
+    public function store(): JsonResponse
     {
-        return 'add';
+        $result = $this->heroService->create();
+
+        return response()->json($result, $result['code']);
     }
 
-    public function delete()
+    /**
+     * Update a hero
+     *
+     * @return JsonResponse
+     */
+    public function update(): JsonResponse
     {
+        $result = $this->heroService->update();
 
+        return response()->json($result, $result['code']);
+    }
+
+    /**
+     * Delete a hero
+     *
+     * @return JsonResponse
+     */
+    public function delete(): JsonResponse
+    {
+        $result = $this->heroService->delete();
+
+        return response()->json($result, $result['code']);
     }
 }

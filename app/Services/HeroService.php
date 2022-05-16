@@ -37,8 +37,7 @@ class HeroService
     /**
      * Get hero or create if not found
      *
-     * @param $provider
-     * @param $hero
+     * @param $id
      * @return array
      */
     public function getDetail($id): array
