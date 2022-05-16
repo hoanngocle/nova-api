@@ -38,6 +38,7 @@ class HeroController extends Controller
     /**
      * Get detail of hero
      *
+     * @param $id
      * @return JsonResponse
      */
     public function detail($id): JsonResponse

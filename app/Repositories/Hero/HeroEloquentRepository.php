@@ -31,4 +31,8 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
             ->orderBy($params['sort_by'], $params['sort_order'])
             ->paginate($params['per_page']);
     }
+
+    public function getHero($id) {
+        return $this->_model->find($id);
+    }
 }

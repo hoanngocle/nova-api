@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Helpers\ServiceHelper;
+use App\Http\Resources\Hero\HeroDetailResource;
 use App\Http\Resources\Hero\HeroResource;
 use App\Repositories\Hero\HeroRepositoryInterface;
 
@@ -43,9 +44,9 @@ class HeroService
     public function getDetail($id): array
     {
         try {
-            $response = $this->heroRepository->getHero();
+            $response = $this->heroRepository->getHero($id);
 
-            return ServiceHelper::paginatedData(new HeroResource($response));
+            return ServiceHelper::data(HeroDetailResource::make($response));
         } catch (\Exception $e) {
             return ServiceHelper::serverError($e);
         }
