@@ -4,10 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonListRequest;
+use App\Http\Requests\User\CreateWeaponRequest;
+use App\Http\Requests\User\UpdateWeaponRequest;
 use App\Services\WeaponService;
+use Illuminate\Http\JsonResponse;
 
 class WeaponController extends Controller
 {
+    /**
+     * @var WeaponService
+     */
     protected WeaponService $weaponService;
 
     /**
@@ -22,27 +28,65 @@ class WeaponController extends Controller
      * Get list of weapon
      *
      * @param CommonListRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function index(CommonListRequest $request)
+    public function index(CommonListRequest $request): JsonResponse
     {
         $result = $this->weaponService->getList($request->validated());
 
         return response()->json($result, $result['code']);
     }
 
-    public function detail()
+    /**
+     * Get detail of weapon
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function detail($id): JsonResponse
     {
-        return 'detail';
+        $result = $this->weaponService->getWeapon($id);
+
+        return response()->json($result, $result['code']);
     }
 
-    public function store()
+    /**
+     * Create new weapon
+     *
+     * @param CreateWeaponRequest $request
+     * @return JsonResponse
+     */
+    public function store(CreateWeaponRequest $request): JsonResponse
     {
-        return 'add';
+        $result = $this->weaponService->create($request->validated());
+
+        return response()->json($result, $result['code']);
     }
 
-    public function delete()
+    /**
+     * Update a weapon
+     *
+     * @param $id
+     * @param UpdateWeaponRequest $request
+     * @return JsonResponse
+     */
+    public function update($id, UpdateWeaponRequest $request): JsonResponse
     {
+        $result = $this->weaponService->update($id, $request->validated());
 
+        return response()->json($result, $result['code']);
+    }
+
+    /**
+     * Delete a weapon
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function delete($id): JsonResponse
+    {
+        $result = $this->weaponService->delete($id);
+
+        return response()->json($result, $result['code']);
     }
 }

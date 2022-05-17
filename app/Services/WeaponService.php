@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Helpers\ServiceHelper;
+use App\Http\Resources\Weapon\WeaponDetailResource;
 use App\Http\Resources\Weapon\WeaponResource;
 use App\Repositories\Weapon\WeaponRepositoryInterface;
 
@@ -11,7 +12,6 @@ class WeaponService
     protected WeaponRepositoryInterface $weaponRepository;
 
     /**
-     * AuthServices constructor.
      * @param WeaponRepositoryInterface $weaponRepository
      */
     public function __construct(WeaponRepositoryInterface $weaponRepository)
@@ -26,28 +26,83 @@ class WeaponService
     public function getList($params): array
     {
         try {
-            if (isset($params['keyword'])) {
-                $response = $this->weaponRepository->listSearch($params);
-            } else {
-                $response = $this->weaponRepository->paginate($params);
-            }
+            $response = $this->weaponRepository->listSearch($params);
 
             return ServiceHelper::paginatedData(WeaponResource::collection($response));
         } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
             return ServiceHelper::serverError($e);
         }
     }
 
-
     /**
      * Get weapon or create if not found
      *
-     * @param $provider
-     * @param $weapon
-     * @return mixed
+     * @param $id
+     * @return array
      */
-    public function firstOrCreateWeapon($provider, $weapon): mixed
+    public function getWeapon($id): array
     {
-        return $this->weaponRepository->firstOrCreateWeapon($provider, $weapon);
+        try {
+            $response = $this->weaponRepository->find($id);
+
+            return ServiceHelper::data(WeaponDetailResource::make($response));
+        } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return ServiceHelper::serverError($e);
+        }
+    }
+
+    /**
+     * @param $params
+     * @return array
+     */
+    public function create($params): array
+    {
+        try {
+            $response = $this->weaponRepository->createWeapon($params);
+
+            return ServiceHelper::createdWithData('Weapon', $response);
+        } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return ServiceHelper::serverError($e);
+        }
+    }
+
+    /**
+     * @param $id
+     * @param $params
+     * @return array
+     */
+    public function update($id, $params): array
+    {
+        try {
+            $response = $this->weaponRepository->updateWeapon($id, $params);
+
+            return ServiceHelper::updatedWithData('Weapon', $response);
+        } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return ServiceHelper::serverError($e);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function delete($id): array
+    {
+        try {
+            $response = $this->weaponRepository->deleteWeapon($id);
+
+            if ($response) {
+                return ServiceHelper::deleted('Weapon');
+            } else {
+                return ServiceHelper::deleteConflict('Weapon');
+            }
+        } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return ServiceHelper::serverError($e);
+        }
     }
 }
