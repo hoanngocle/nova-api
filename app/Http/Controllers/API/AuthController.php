@@ -7,6 +7,7 @@ use App\Helpers\ServiceHelper;
 use App\Http\Controllers\Controller as BaseController;
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
+use App\Http\Resources\User\UserResource;
 use App\Services\UserService;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
@@ -89,9 +90,8 @@ class AuthController extends BaseController
      * Handle when another page callback
      *
      * @param $provider
-     * @return JsonResponse
      */
-    public function handleSocialCallback($provider): JsonResponse
+    public function handleSocialCallback($provider)
     {
         $validated = $this->userService->validateProvider($provider);
         if (!is_null($validated)) {

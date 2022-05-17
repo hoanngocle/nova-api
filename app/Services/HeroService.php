@@ -12,7 +12,6 @@ class HeroService
     protected HeroRepositoryInterface $heroRepository;
 
     /**
-     * AuthServices constructor.
      * @param HeroRepositoryInterface $heroRepository
      */
     public function __construct(HeroRepositoryInterface $heroRepository)
@@ -31,6 +30,7 @@ class HeroService
 
             return ServiceHelper::paginatedData(HeroResource::collection($response));
         } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
             return ServiceHelper::serverError($e);
         }
     }
@@ -41,13 +41,67 @@ class HeroService
      * @param $id
      * @return array
      */
-    public function getDetail($id): array
+    public function getHero($id): array
     {
         try {
-            $response = $this->heroRepository->getHero($id);
+            $response = $this->heroRepository->find($id);
 
             return ServiceHelper::data(HeroDetailResource::make($response));
         } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return ServiceHelper::serverError($e);
+        }
+    }
+
+    /**
+     * @param $params
+     * @return array
+     */
+    public function create($params): array
+    {
+        try {
+            $response = $this->heroRepository->createHero($params);
+
+            return ServiceHelper::createdWithData('Hero', $response);
+        } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return ServiceHelper::serverError($e);
+        }
+    }
+
+    /**
+     * @param $id
+     * @param $params
+     * @return array
+     */
+    public function update($id, $params): array
+    {
+        try {
+            $response = $this->heroRepository->updateHero($id, $params);
+
+            return ServiceHelper::updatedWithData('Hero', $response);
+        } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
+            return ServiceHelper::serverError($e);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function delete($id): array
+    {
+        try {
+            $response = $this->heroRepository->deleteHero($id);
+
+            if ($response) {
+                return ServiceHelper::deleted('Hero');
+            } else {
+                return ServiceHelper::deleteConflict('Hero');
+            }
+        } catch (\Exception $e) {
+            logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
             return ServiceHelper::serverError($e);
         }
     }

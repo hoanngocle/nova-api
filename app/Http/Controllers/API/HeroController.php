@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonListRequest;
+use App\Http\Requests\User\CreateHeroRequest;
+use App\Http\Requests\User\UpdateHeroRequest;
 use App\Services\HeroService;
 use Illuminate\Http\JsonResponse;
 
@@ -43,7 +45,7 @@ class HeroController extends Controller
      */
     public function detail($id): JsonResponse
     {
-        $result = $this->heroService->getDetail($id);
+        $result = $this->heroService->getHero($id);
 
         return response()->json($result, $result['code']);
     }
@@ -51,11 +53,12 @@ class HeroController extends Controller
     /**
      * Create new hero
      *
+     * @param CreateHeroRequest $request
      * @return JsonResponse
      */
-    public function store(): JsonResponse
+    public function store(CreateHeroRequest $request): JsonResponse
     {
-        $result = $this->heroService->create();
+        $result = $this->heroService->create($request->validated());
 
         return response()->json($result, $result['code']);
     }
@@ -63,11 +66,13 @@ class HeroController extends Controller
     /**
      * Update a hero
      *
+     * @param $id
+     * @param UpdateHeroRequest $request
      * @return JsonResponse
      */
-    public function update(): JsonResponse
+    public function update($id, UpdateHeroRequest $request): JsonResponse
     {
-        $result = $this->heroService->update();
+        $result = $this->heroService->update($id, $request->validated());
 
         return response()->json($result, $result['code']);
     }
@@ -75,11 +80,12 @@ class HeroController extends Controller
     /**
      * Delete a hero
      *
+     * @param $id
      * @return JsonResponse
      */
-    public function delete(): JsonResponse
+    public function delete($id): JsonResponse
     {
-        $result = $this->heroService->delete();
+        $result = $this->heroService->delete($id);
 
         return response()->json($result, $result['code']);
     }

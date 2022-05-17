@@ -32,7 +32,46 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
             ->paginate($params['per_page']);
     }
 
-    public function getHero($id) {
-        return $this->_model->find($id);
+
+    /**
+     * @param $params
+     * @return string
+     */
+    public function createHero($params) {
+        // Create attribute
+
+        // Create hero
+
+        // Create hero image
+        return 'created';
+    }
+
+    /**
+     * @param $id
+     * @param $params
+     * @return string
+     */
+    public function updateHero($id, $params) {
+        // Create attribute
+
+        // Create hero
+
+        // Create hero image
+        return 'updated';
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function deleteHero($id) {
+        // Delete hero image
+
+        // Delete hero
+
+        // Delete attribute
+
+
+        return 'deleted';
     }
 }

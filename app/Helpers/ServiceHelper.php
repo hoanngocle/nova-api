@@ -132,6 +132,20 @@ class ServiceHelper
     }
 
     /**
+     * Updated with data return
+     */
+    public static function updatedWithData($name, $data): array
+    {
+        return
+            [
+                'success'   => true,
+                'code'      => Response::HTTP_CREATED,
+                'data'      => $data,
+                'message'   => $name . ' has been updated successfully.'
+            ];
+    }
+
+    /**
      *
      */
     public static function deleted($name): array

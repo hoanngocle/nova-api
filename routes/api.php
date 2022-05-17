@@ -32,7 +32,7 @@ Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
             Route::get('{id}', 'detail')->name('hero.detail');
             Route::post('create', 'create')->name('hero.create');
             Route::post('{id}/update', 'update')->name('hero.update');
-            Route::delete('{id}', 'store')->name('hero.delete');
+            Route::delete('{id}', 'delete')->name('hero.delete');
         });
 });
 
