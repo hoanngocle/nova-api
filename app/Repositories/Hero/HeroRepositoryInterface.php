@@ -12,11 +12,6 @@ interface HeroRepositoryInterface extends BaseRepositoryInterface
     public function listSearch($params);
 
     /**
-     * @param $params
-     */
-    public function createHero($params);
-
-    /**
      * @param $id
      * @param $params
      */

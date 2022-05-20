@@ -2,42 +2,31 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\CreateAttributeData;
-use App\DataTransferObjects\CreateHeroData;
 use App\Helpers\ServiceHelper;
-use App\Http\Resources\Hero\HeroDetailResource;
-use App\Http\Resources\Hero\HeroResource;
 use App\Repositories\Attribute\AttributeRepositoryInterface;
-use App\Repositories\Hero\HeroRepositoryInterface;
 
-class HeroService
+class AttributeService
 {
-    protected HeroRepositoryInterface $heroRepository;
     protected AttributeRepositoryInterface $attributeRepository;
 
     /**
-     * @param HeroRepositoryInterface $heroRepository
      * @param AttributeRepositoryInterface $attributeRepository
      */
-    public function __construct(
-        HeroRepositoryInterface $heroRepository,
-        AttributeRepositoryInterface $attributeRepository,
-    )
+    public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
-        $this->heroRepository = $heroRepository;
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * Get list hero
+     * Get list attribute
      *
      */
     public function getList($params): array
     {
         try {
-            $response = $this->heroRepository->listSearch($params);
+            $response = $this->attributeRepository->listSearch($params);
 
-            return ServiceHelper::paginatedData(HeroResource::collection($response));
+            return ServiceHelper::paginatedData(AttributeResource::collection($response));
         } catch (\Exception $e) {
             logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
             return ServiceHelper::serverError($e);
@@ -45,17 +34,17 @@ class HeroService
     }
 
     /**
-     * Get hero or create if not found
+     * Get attribute or create if not found
      *
      * @param $id
      * @return array
      */
-    public function getHero($id): array
+    public function getAttribute($id): array
     {
         try {
-            $response = $this->heroRepository->find($id);
+            $response = $this->attributeRepository->find($id);
 
-            return ServiceHelper::data(HeroDetailResource::make($response));
+            return ServiceHelper::data(AttributeDetailResource::make($response));
         } catch (\Exception $e) {
             logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
             return ServiceHelper::serverError($e);
@@ -63,17 +52,15 @@ class HeroService
     }
 
     /**
-     * @param CreateAttributeData $attibuteData
-     * @param CreateHeroData $heroData
+     * @param CreateAttributeData $createAttributeData
      * @return array
      */
-    public function create(CreateAttributeData $attibuteData, CreateHeroData $heroData,): array
+    public function create(CreateAttributeData $createAttributeData): array
     {
         try {
-            $attribute = $this->attributeRepository->create($attibuteData->all());
-            $response = $this->heroRepository->create(['attribute_id' => $attribute->id, ...$heroData->all()]);
+            $response = $this->attributeRepository->createAttribute($createAttributeData->all());
 
-            return ServiceHelper::createdWithData('Hero', $response);
+            return ServiceHelper::createdWithData('Attribute', $response);
         } catch (\Exception $e) {
             logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
             return ServiceHelper::serverError($e);
@@ -88,9 +75,9 @@ class HeroService
     public function update($id, $params): array
     {
         try {
-            $response = $this->heroRepository->updateHero($id, $params);
+            $response = $this->attributeRepository->updateAttribute($id, $params);
 
-            return ServiceHelper::updatedWithData('Hero', $response);
+            return ServiceHelper::updatedWithData('Attribute', $response);
         } catch (\Exception $e) {
             logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());
             return ServiceHelper::serverError($e);
@@ -104,12 +91,12 @@ class HeroService
     public function delete($id): array
     {
         try {
-            $response = $this->heroRepository->deleteHero($id);
+            $response = $this->attributeRepository->deleteAttribute($id);
 
             if ($response) {
-                return ServiceHelper::deleted('Hero');
+                return ServiceHelper::deleted('Attribute');
             } else {
-                return ServiceHelper::deleteConflict('Hero');
+                return ServiceHelper::deleteConflict('Attribute');
             }
         } catch (\Exception $e) {
             logger(__METHOD__ . ' ' . __LINE__ . ': ' . $e->getMessage());

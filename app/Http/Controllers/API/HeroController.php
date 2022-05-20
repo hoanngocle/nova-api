@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\DataTransferObjects\CreateAttributeData;
+use App\DataTransferObjects\CreateHeroData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonListRequest;
-use App\Http\Requests\User\CreateHeroRequest;
+use App\Http\Requests\Hero\CreateHeroRequest;
 use App\Http\Requests\User\UpdateHeroRequest;
 use App\Services\HeroService;
 use Illuminate\Http\JsonResponse;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class HeroController extends Controller
 {
@@ -55,10 +58,11 @@ class HeroController extends Controller
      *
      * @param CreateHeroRequest $request
      * @return JsonResponse
+     * @throws UnknownProperties
      */
-    public function store(CreateHeroRequest $request): JsonResponse
+    public function create(CreateHeroRequest $request): JsonResponse
     {
-        $result = $this->heroService->create($request->validated());
+        $result = $this->heroService->create(CreateAttributeData::fromRequest($request), CreateHeroData::fromRequest($request));
 
         return response()->json($result, $result['code']);
     }

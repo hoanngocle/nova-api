@@ -17,21 +17,13 @@ class Hero extends Model
      * @var string[]
      */
     protected $fillable = [
+        'attribute_id',
         'name',
         'bio',
         'avatar',
         'rarity',
         'element',
         'type',
-        'attack',
-        'health',
-        'defend',
-        'eva',
-        'aim',
-        'crit_rate',
-        'crit_damage',
-        'exp_rate',
-        'coin_rate',
         'status',
     ];
 
