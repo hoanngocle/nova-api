@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Crawler\KamihimeGirlEngVer;
 use App\Crawler\KamihimeMonsterEngVer;
-use App\Crawler\KamihimeSoulEngVer;
 use Illuminate\Console\Command;
 
 class CrawlerKamihimeMonsterCommand extends Command

@@ -2,8 +2,6 @@
 
 namespace App\Repositories\Base;
 
-use App\DataTransferObjects\CommonListRequestData;
-
 /**
  * Interface BaseRepositoryInterface
  * @package App\Repositories\Base
