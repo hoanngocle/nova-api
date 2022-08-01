@@ -8,6 +8,7 @@ use App\Http\Requests\User\CreateWeaponRequest;
 use App\Http\Requests\User\UpdateWeaponRequest;
 use App\Services\WeaponService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
 
 class WeaponController extends Controller
 {
@@ -88,5 +89,18 @@ class WeaponController extends Controller
         $result = $this->weaponService->delete($id);
 
         return response()->json($result, $result['code']);
+    }
+
+
+    public function sendMail()
+    {
+        $to_name = "Hoan Ngoc Le";
+        $to_email = "hoanngocle.93@gmail.com";
+        $data = array("name"=> "Ogbonna Vitalis(sender_name)", "body" => "A test mail");
+        Mail::send("emails.mail", $data, function($message) use ($to_name, $to_email) {
+            $message->from(env('MAIL_FROM_ADDRESS'), 'Love')
+                ->to($to_email, $to_name)
+                ->subject("Laravel Test Mail");
+        });
     }
 }

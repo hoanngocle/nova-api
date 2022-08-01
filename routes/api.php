@@ -43,6 +43,7 @@ Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
         Route::post('create', 'create')->name('weapon.create');
         Route::post('{id}/update', 'update')->name('weapon.update');
         Route::delete('{id}', 'delete')->name('weapon.delete');
+        Route::post('sendMail', 'sendMail')->name('weapon.sendMail');
     });
 
     Route::controller(MasterLevelController::class)->prefix('master-level')->group(function () {
