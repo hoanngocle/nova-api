@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\HeroController;
 use App\Http\Controllers\API\ImageController;
+use App\Http\Controllers\API\MasterJobLevelController;
 use App\Http\Controllers\API\MasterLevelController;
 use App\Http\Controllers\API\WeaponController;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +53,7 @@ Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
         Route::get('{id}', 'detail')->name('weapon.detail');
     });
 
-    Route::controller(MasterLevelController::class)->prefix('master-job-level')->group(function () {
+    Route::controller(MasterJobLevelController::class)->prefix('master-job-level')->group(function () {
         Route::get('', 'index')->name('weapon.list');
         Route::get('{id}', 'detail')->name('weapon.detail');
     });
