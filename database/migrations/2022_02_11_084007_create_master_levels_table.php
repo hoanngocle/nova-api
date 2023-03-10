@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterJobLevelTable extends Migration
+class CreateMasterLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateMasterJobLevelTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('constant.MASTER_TBL.JOB_LEVEL'), function (Blueprint $table) {
+        Schema::create(config('constant.MASTER_TBL.LEVEL'), function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('type')->comment('1: luyện đan sư; 2: luyện khí sư');
             $table->unsignedInteger('level');
             $table->unsignedDouble('exp');
             $table->string('name');
-            $table->string('sub_name');
-            $table->string('state');
-            $table->integer('effect');
-            $table->string('rarity');
+            $table->string('sub_name')->nullable();
+            $table->string('inner_state');
         });
     }
 
@@ -33,6 +30,6 @@ class CreateMasterJobLevelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('constant.MASTER_TBL.JOB_LEVEL'));
+        Schema::dropIfExists('master_level');
     }
 }

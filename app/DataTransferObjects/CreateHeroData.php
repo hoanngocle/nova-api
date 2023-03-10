@@ -9,7 +9,12 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 class CreateHeroData extends DataTransferObject
 {
     public string $name;
-    public string $type;
+    public string $bio;
+    public string $avatar;
+    public int $rarity;
+    public int $element;
+    public int $type;
+    public int $status;
 
     /**
      * @param CreateHeroRequest $request
@@ -28,18 +33,6 @@ class CreateHeroData extends DataTransferObject
             'element'       => $inputs['element'],
             'type'          => $inputs['type'],
             'status'        => $inputs['status'],
-            'defend'        => $inputs['defend'],
-            'health'        => $inputs['health'],
-            'eva_rate'      => $inputs['eva_rate'],
-            'aim_rate'      => $inputs['aim_rate'],
-            'crit_rate'     => $inputs['crit_rate'],
-            'crit_damage'   => $inputs['crit_damage'],
-            'exp_rate'      => $inputs['exp_rate'],
-            'coin_rate'     => $inputs['coin_rate'],
-            'effect_rate'   => $inputs['effect_rate'],
-            'effect_value'  => $inputs['effect_value'],
-            'sale_price'    => $inputs['sale_price'],
-            'buy_price'     => $inputs['buy_price'],
         ]);
     }
 }

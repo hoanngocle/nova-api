@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Repositories\Hero;
+namespace App\Repositories\Attribute;
 
 use App\Models\Attribute;
-use App\Models\Hero;
 use App\Repositories\Base\BaseEloquentRepository;
-use Exception;
 
-class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepositoryInterface
+class AttributeEloquentRepository extends BaseEloquentRepository implements AttributeRepositoryInterface
 {
     /**
      * get model
@@ -15,7 +13,7 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
      */
     public function getModel(): string
     {
-        return Hero::class;
+        return Attribute::class;
     }
 
     /**
@@ -34,17 +32,26 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
     }
 
     /**
+     * @param $params
+     * @return string
+     */
+    public function createAttribute($params)
+    {
+        return $this->_model->create($params);
+    }
+
+    /**
      * @param $id
      * @param $params
      * @return string
      */
-    public function updateHero($id, $params)
+    public function updateAttribute($id, $params)
     {
         // Create attribute
 
-        // Create hero
+        // Create attribute
 
-        // Create hero image
+        // Create attribute image
         return 'updated';
     }
 
@@ -52,11 +59,11 @@ class HeroEloquentRepository extends BaseEloquentRepository implements HeroRepos
      * @param $id
      * @return string
      */
-    public function deleteHero($id)
+    public function deleteAttribute($id)
     {
-        // Delete hero image
+        // Delete attribute image
 
-        // Delete hero
+        // Delete attribute
 
         // Delete attribute
 

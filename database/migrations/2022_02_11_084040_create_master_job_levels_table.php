@@ -1,10 +1,11 @@
 <?php
 
+use App\Enums\JobType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterLevelTable extends Migration
+class CreateMasterJobLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +14,16 @@ class CreateMasterLevelTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('constant.MASTER_TBL.LEVEL'), function (Blueprint $table) {
+        Schema::create(config('constant.MASTER_TBL.JOB_LEVEL'), function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('type')->default(JobType::FIRE)->comment('1: luyện đan sư; 2: luyện khí sư');
             $table->unsignedInteger('level');
             $table->unsignedDouble('exp');
             $table->string('name');
-            $table->string('sub_name')->nullable();
-            $table->string('inner_state');
+            $table->string('sub_name');
+            $table->string('state');
+            $table->integer('effect');
+            $table->string('rarity');
         });
     }
 
@@ -30,6 +34,6 @@ class CreateMasterLevelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_level');
+        Schema::dropIfExists(config('constant.MASTER_TBL.JOB_LEVEL'));
     }
 }

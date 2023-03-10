@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\MasterLevel;
+namespace App\Repositories\Image;
 
-use App\Models\MasterLevel;
+use App\Models\Image;
 use App\Repositories\Base\BaseEloquentRepository;
 
-class MasterLevelEloquentRepository extends BaseEloquentRepository implements MasterLevelRepositoryInterface
+class ImageEloquentRepository extends BaseEloquentRepository implements ImageRepositoryInterface
 {
     /**
      * get model
@@ -13,7 +13,7 @@ class MasterLevelEloquentRepository extends BaseEloquentRepository implements Ma
      */
     public function getModel(): string
     {
-        return MasterLevel::class;
+        return Image::class;
     }
 
     /**

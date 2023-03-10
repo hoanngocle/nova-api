@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Weapon;
+namespace App\Http\Resources\Image;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 
-class WeaponResource extends JsonResource
+class ImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +18,11 @@ class WeaponResource extends JsonResource
     {
         return [
             'name'          => $this->name,
+            'bio'           => $this->bio,
             'avatar'        => $this->avatar,
-            'image'         => $this->image,
             'rarity'        => $this->rarity,
             'element'       => $this->element,
+            'type'          => $this->type,
             'status'        => $this->status,
             'attack'        => $this->attribute->attack,
             'health'        => $this->attribute->health,

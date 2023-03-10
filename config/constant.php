@@ -39,8 +39,8 @@ return [
     'MASTER_TBL' => [
         'CATEGORY'  => 'master_categories',
         'EQUIPMENT' => 'master_equipments',
-        'LEVEL'     => 'master_level',
-        'JOB_LEVEL' => 'master_job_level',
+        'LEVEL'     => 'master_levels',
+        'JOB_LEVEL' => 'master_job_levels',
     ]
 ];
 
