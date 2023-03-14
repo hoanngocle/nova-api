@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
 
         $data = [
             [
-                'username'          => 'nyx',
-                'email'             => 'nyx@neon.com',
+                'username'          => 'admin',
+                'email'             => 'admin@nova.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('admin'),
                 'bio'               => 'Darkness guide you, child. You have outgrown this house, of that I am now certain. Should you return again here, I shall keep you safe.',
@@ -38,10 +38,10 @@ class UserSeeder extends Seeder
                 'updated_at'        => now(),
             ],
             [
-                'username'          => 'admin',
-                'email'             => 'admin@neon.com',
+                'username'          => 'user',
+                'email'             => 'user@nova.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make('admin'),
+                'password'          => Hash::make('user'),
                 'bio'               => 'Mother Night, we like to call her, though rare is the occasion when she dotes on us. She has her many, many children to look after, many of whom reside now in locales beyond my reckoning, and perhaps beyond hers. ',
                 'avatar'            => 'images/avatar/avatar_2.jpg',
                 'dob'               => '2021-03-08',

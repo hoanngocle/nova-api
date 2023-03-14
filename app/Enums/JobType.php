@@ -4,22 +4,14 @@ namespace App\Enums;
 
 enum JobType: int
 {
-    case WATER      = 1;
-    case FIRE       = 2;
-
-    public function color(): string
-    {
-        return match ($this) {
-            self::WATER     => 'blue',
-            self::FIRE      => 'red',
-        };
-    }
+    case APOTHECARY = 1; // Luyện dược sư
+    case ALCHEMIST  = 2; // Luyện khí sư
 
     public function text(): string
     {
         return match ($this) {
-            self::WATER     => 'Thủy',
-            self::FIRE      => 'Hỏa',
+            self::APOTHECARY    => 'Luyện dược sư',
+            self::ALCHEMIST     => 'Luyện khí sư',
         };
     }
 }
