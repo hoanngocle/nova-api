@@ -28,8 +28,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
                 'code'      => Response::HTTP_OK,
+                'success'   => true,
+                'message'   => __('auth.login.success'),
                 'token'     => $plainTextToken,
                 'user'      => new UserResource(auth()->user())
             ];
@@ -44,8 +45,8 @@ class ServiceHelper
     {
         return
             [
-                'success'   => false,
                 'code'      => Response::HTTP_UNAUTHORIZED,
+                'success'   => false,
                 'message'   => __('auth.login.error')
             ];
     }
