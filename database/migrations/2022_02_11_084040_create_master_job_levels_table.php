@@ -16,7 +16,7 @@ class CreateMasterJobLevelsTable extends Migration
     {
         Schema::create(config('constant.MASTER_TBL.JOB_LEVEL'), function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('type')->default(JobType::FIRE)->comment('1: luyện đan sư; 2: luyện khí sư');
+            $table->tinyInteger('type')->comment('1: luyện dược sư; 2: luyện khí sư');
             $table->unsignedInteger('level');
             $table->unsignedDouble('exp');
             $table->string('name');

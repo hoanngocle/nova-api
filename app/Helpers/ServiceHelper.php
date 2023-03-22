@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Http\Resources\User\UserResource;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -29,7 +30,8 @@ class ServiceHelper
             [
                 'success'   => true,
                 'code'      => Response::HTTP_OK,
-                'token'     => $plainTextToken
+                'token'     => $plainTextToken,
+                'user'      => new UserResource(auth()->user())
             ];
     }
 
