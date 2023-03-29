@@ -122,7 +122,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * Updated without data return
      */
     public static function updated($name): array
     {
@@ -149,7 +149,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * Deleted without data return
      */
     public static function deleted($name): array
     {
@@ -162,7 +162,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * Unauthorized access
      */
     public static function unauthorized($name): array
     {
@@ -175,7 +175,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * Fobbiden access
      */
     public static function forbidden($name): array
     {
@@ -188,7 +188,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * 404 Not found
      */
     public static function notFound($name): array
     {
@@ -200,7 +200,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * Deleted fail because conflict data
      */
     public static function deleteConflict($name): array
     {
@@ -212,7 +212,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * Value error
      */
     public static function invalidValueError($name): array
     {
@@ -224,7 +224,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * DB query error
      */
     public static function queryError($errorCode, $e = null): array
     {
@@ -251,7 +251,7 @@ class ServiceHelper
     }
 
     /**
-     *
+     * 500 Server Error
      */
     public static function serverError($e = null): array
     {
