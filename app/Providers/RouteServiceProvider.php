@@ -38,16 +38,16 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            // API routes
+            $this->mapApiRoutes();
+
             // Web route
             $this->mapWebRoutes();
-
-            // Custom API routes
-            $this->mapApiRoutes();
         });
     }
 
     /**
-     * Define the "api/v1" routes for the application.
+     * Define the "api" routes for the application.
      *
      * These routes are typically stateless.RouteServiceProvider
      *
