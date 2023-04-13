@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $repositories = [
             'Base',
-            'User',
+            'User', 'Character',
             'Attribute', 'Hero', 'Weapon',
             'MasterLevel', 'MasterJobLevel'
         ];

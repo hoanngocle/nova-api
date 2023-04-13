@@ -217,6 +217,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
 
     /**
      * @param $params
+     * @return mixed
      */
     public function transferData($params) {
         $params['sort_by']     = $params['sort_by'] ?? config('constant.SORT_BY');

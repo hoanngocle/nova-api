@@ -5,6 +5,7 @@ use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LoginSocialController;
 use App\Http\Controllers\API\Auth\ProfileController;
 use App\Http\Controllers\API\Auth\RegisterController;
+use App\Http\Controllers\API\Character\CharacterInfoController;
 use App\Http\Controllers\API\HeroController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\MasterJobLevelController;
@@ -39,6 +40,7 @@ Route::controller(LoginSocialController::class)->group(function (){
  */
 Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
     Route::get('profile', ProfileController::class)->name('user.profile');
+    Route::get('character-info', CharacterInfoController::class)->name('character.info');
 
     Route::controller(HeroController::class)->prefix('hero')->group(function () {
         Route::get('', 'index')->name('hero.list');
