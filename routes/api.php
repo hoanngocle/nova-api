@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\Auth\LoginController;
+use App\Http\Controllers\API\Auth\LoginSocialController;
+use App\Http\Controllers\API\Auth\ProfileController;
+use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\HeroController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\MasterJobLevelController;
@@ -19,17 +23,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(AuthController::class)->group(function (){
-    Route::post('login', 'login');
-    Route::post('register', 'register');
+/**
+ * Unauthenticated router
+ */
+Route::post('login', LoginController::class);
+Route::post('register', RegisterController::class);
 
+Route::controller(LoginSocialController::class)->group(function (){
     Route::get('login/{provider}', 'loginSocial');
     Route::get('login/{provider}/callback', 'handleSocialCallback');
 });
 
+/**
+ * Authenticated router
+ */
 Route::group(['middleware' => ['VerifyAPIKey', 'auth:sanctum']], function () {
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('profile', [AuthController::class, 'profile'])->name('user.profile');
+    Route::get('profile', ProfileController::class)->name('user.profile');
 
     Route::controller(HeroController::class)->prefix('hero')->group(function () {
         Route::get('', 'index')->name('hero.list');

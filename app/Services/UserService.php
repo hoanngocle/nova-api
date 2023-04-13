@@ -65,9 +65,9 @@ class UserService
      * Validate provider (facebook, google, github)
      *
      * @param $provider
-     * @return JsonResponse|null
+     * @return \Illuminate\Http\JsonResponse|null
      */
-    public function validateProvider($provider): ?JsonResponse
+    public function validateProvider($provider): ?\Illuminate\Http\JsonResponse
     {
         if (!in_array($provider, config("constant.SOCIAL_ARRAY"))) {
             return response()->json(
@@ -101,7 +101,7 @@ class UserService
     {
         $input = $request->all();
         $input['password'] = bcrypt($request['password']);
-        $input['role'] = UserType::MEMBER->value;
+        $input['role'] = UserType::CLIENT->value;
         $response = $this->userRepository->create($input);
 
         if ($response) {

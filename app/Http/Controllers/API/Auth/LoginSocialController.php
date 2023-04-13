@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Auth;
 
-use App\Enums\UserStatus;
-use App\Helpers\ServiceHelper;
 use App\Http\Controllers\Controller as BaseController;
-use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\User\UserResource;
 use App\Services\UserService;
@@ -13,10 +10,9 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
-class AuthController extends BaseController
+class LoginSocialController extends BaseController
 {
     protected UserService $userService;
 
@@ -26,46 +22,12 @@ class AuthController extends BaseController
     }
 
     /**
-     * @param LoginRequest $request
-     * @return JsonResponse
-     * @throws Exception
-     */
-    public function login(LoginRequest $request): JsonResponse
-    {
-        $result = $this->userService->processLogin($request->validated());
-
-        return response()->json($result, $result['code']);
-    }
-
-    /**
      * @return JsonResponse
      * @throws Exception
      */
     public function logout(): JsonResponse
     {
         $result = $this->userService->logout();
-
-        return response()->json($result, $result['code']);
-    }
-
-    /**
-     * @return JsonResponse
-     * @throws Exception
-     */
-    public function profile(): JsonResponse
-    {
-        $result = $this->userService->getProfile();
-
-        return response()->json($result, $result['code']);
-    }
-
-    /**
-     * @param RegisterRequest $request
-     * @return JsonResponse
-     */
-    public function register(RegisterRequest $request): JsonResponse
-    {
-        $result = $this->userService->registerUser($request);
 
         return response()->json($result, $result['code']);
     }
@@ -90,6 +52,7 @@ class AuthController extends BaseController
      * Handle when another page callback
      *
      * @param $provider
+     * @return \App\Services\JsonResponse|JsonResponse
      */
     public function handleSocialCallback($provider)
     {
