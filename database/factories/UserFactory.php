@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
@@ -20,13 +19,13 @@ class UserFactory extends Factory
             'email'             => $this->faker->unique()->safeEmail(),
             'email_verified_at' => $this->faker->dateTime(),
             'password'          => Hash::make('password'),
-            'bio'               => $this->faker->text(200),
-            'avatar'            => config('images.image_directory') . config('images.user.avatar_path') . 'avatar_' . $this->faker->numberBetween(1,11),
+            'bio'               => $this->faker->text(),
+            'avatar'            => config('images.image_directory') . config('images.user.avatar_path') . 'avatar_' . $this->faker->numberBetween(1, 11),
             'dob'               => $this->faker->dateTimeBetween('1980-01-01', '2012-12-31')->format('Y-m-d'),
             'address'           => $this->faker->address(),
             'remember_token'    => $this->faker->regexify('[A-Za-z0-9]{20}'),
-            'role'              => $this->faker->numberBetween(1,2),
-            'status'            => $this->faker->numberBetween(0,2),
+            'role'              => $this->faker->numberBetween(1, 2),
+            'status'            => $this->faker->numberBetween(0, 2),
         ];
     }
 
