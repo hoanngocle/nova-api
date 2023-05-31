@@ -15,7 +15,7 @@ return [
 
     'login' => [
         'success' => 'Login successfully.',
-        'error' => 'Login failed.'
+        'error' => 'Email or Password is invalid.'
     ],
     'logout' => [
         'success' => 'Logout successfully.',

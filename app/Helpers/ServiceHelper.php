@@ -28,11 +28,11 @@ class ServiceHelper
     {
         return
             [
-                'code'      => Response::HTTP_OK,
-                'success'   => true,
-                'message'   => __('auth.login.success'),
-                'token'     => $plainTextToken,
-                'user'      => new UserResource(auth()->user())
+                'code'    => Response::HTTP_OK,
+                'success' => true,
+                'message' => __('auth.login.success'),
+                'token'   => $plainTextToken,
+                'user'    => new UserResource(auth()->user())
             ];
     }
 
@@ -45,9 +45,9 @@ class ServiceHelper
     {
         return
             [
-                'code'      => Response::HTTP_UNAUTHORIZED,
-                'success'   => false,
-                'message'   => __('auth.login.error')
+                'code'    => Response::HTTP_UNAUTHORIZED,
+                'success' => false,
+                'message' => __('auth.login.error')
             ];
     }
 
@@ -58,9 +58,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
-                'code'      => Response::HTTP_OK,
-                'message'   => $message
+                'success' => true,
+                'code'    => Response::HTTP_OK,
+                'message' => $message
             ];
     }
 
@@ -71,9 +71,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
-                'code'      => Response::HTTP_OK,
-                'data'      => $data
+                'success' => true,
+                'code'    => Response::HTTP_OK,
+                'data'    => $data
             ];
     }
 
@@ -84,13 +84,13 @@ class ServiceHelper
     {
         return
             [
-                'success'       => true,
-                'code'          => Response::HTTP_OK,
-                'total'         => $data->total(),
-                'per_page'      => $data->perPage(),
-                'current_page'  => $data->currentPage(),
-                'last_page'     => $data->lastPage(),
-                'data'          => $data->getCollection()
+                'success'      => true,
+                'code'         => Response::HTTP_OK,
+                'total'        => $data->total(),
+                'per_page'     => $data->perPage(),
+                'current_page' => $data->currentPage(),
+                'last_page'    => $data->lastPage(),
+                'data'         => $data->getCollection()
             ];
     }
 
@@ -101,9 +101,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
-                'code'      => Response::HTTP_CREATED,
-                'message'   => $name . ' has been created successfully.'
+                'success' => true,
+                'code'    => Response::HTTP_CREATED,
+                'message' => $name . ' has been created successfully.'
             ];
     }
 
@@ -114,10 +114,10 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
-                'code'      => Response::HTTP_CREATED,
-                'data'      => $data,
-                'message'   => $name . ' has been created successfully.'
+                'success' => true,
+                'code'    => Response::HTTP_CREATED,
+                'data'    => $data,
+                'message' => $name . ' has been created successfully.'
             ];
     }
 
@@ -128,9 +128,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
-                'code'      => Response::HTTP_OK,
-                'message'   => $name . ' has been updated successfully.'
+                'success' => true,
+                'code'    => Response::HTTP_OK,
+                'message' => $name . ' has been updated successfully.'
             ];
     }
 
@@ -141,10 +141,10 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
-                'code'      => Response::HTTP_CREATED,
-                'data'      => $data,
-                'message'   => $name . ' has been updated successfully.'
+                'success' => true,
+                'code'    => Response::HTTP_CREATED,
+                'data'    => $data,
+                'message' => $name . ' has been updated successfully.'
             ];
     }
 
@@ -155,9 +155,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => true,
-                'code'      => Response::HTTP_OK,
-                'message'   => $name . ' has been deleted successfully.'
+                'success' => true,
+                'code'    => Response::HTTP_OK,
+                'message' => $name . ' has been deleted successfully.'
             ];
     }
 
@@ -168,9 +168,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => false,
-                'code'      => Response::HTTP_UNAUTHORIZED,
-                'message'   => 'Failed to authenticate access for ' . $name
+                'success' => false,
+                'code'    => Response::HTTP_UNAUTHORIZED,
+                'message' => 'Failed to authenticate access for ' . $name
             ];
     }
 
@@ -181,9 +181,9 @@ class ServiceHelper
     {
         return
             [
-                'success'   => false,
-                'code'      => Response::HTTP_FORBIDDEN,
-                'message'   => 'Access forbidden for ' . $name
+                'success' => false,
+                'code'    => Response::HTTP_FORBIDDEN,
+                'message' => 'Access forbidden for ' . $name
             ];
     }
 
@@ -193,9 +193,9 @@ class ServiceHelper
     public static function notFound($name): array
     {
         return [
-            'success'   => false,
-            'code'      => Response::HTTP_NOT_FOUND,
-            'message'   => $name . ' not found.'
+            'success' => false,
+            'code'    => Response::HTTP_NOT_FOUND,
+            'message' => $name . ' not found.'
         ];
     }
 
@@ -205,9 +205,9 @@ class ServiceHelper
     public static function deleteConflict($name): array
     {
         return [
-            'success'   => false,
-            'code'      => Response::HTTP_CONFLICT,
-            'message'   => 'Unable to delete ' . $name . ' as it is still referenced by other records.'
+            'success' => false,
+            'code'    => Response::HTTP_CONFLICT,
+            'message' => 'Unable to delete ' . $name . ' as it is still referenced by other records.'
         ];
     }
 
@@ -217,9 +217,9 @@ class ServiceHelper
     public static function invalidValueError($name): array
     {
         return [
-            'success'   => false,
-            'code'      => Response::HTTP_UNPROCESSABLE_ENTITY,
-            'message'   => $name . ' is invalid.'
+            'success' => false,
+            'code'    => Response::HTTP_UNPROCESSABLE_ENTITY,
+            'message' => $name . ' is invalid.'
         ];
     }
 
@@ -230,22 +230,22 @@ class ServiceHelper
     {
         if ($e && config('app.debug')) {
             return [
-                'success'           => false,
-                'code'              => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message'           => 'A DB Error has occured',
-                'query_error_code'  => $errorCode,
-                'error'             => [
-                    'code'      => $e->getCode(),
-                    'message'   => $e->getMessage(),
-                    'line'      => $e->getLine(),
+                'success'          => false,
+                'code'             => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message'          => 'A DB Error has occured',
+                'query_error_code' => $errorCode,
+                'error'            => [
+                    'code'    => $e->getCode(),
+                    'message' => $e->getMessage(),
+                    'line'    => $e->getLine(),
                 ]
             ];
         } else {
             return [
-                'success'           => false,
-                'code'              => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message'           => 'A DB Error has occured',
-                'query_error_code'  => $errorCode
+                'success'          => false,
+                'code'             => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message'          => 'A DB Error has occured',
+                'query_error_code' => $errorCode
             ];
         }
     }
@@ -257,19 +257,19 @@ class ServiceHelper
     {
         if ($e && config('app.debug')) {
             return [
-                'success'   => false,
-                'code'      => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message'   => 'An Internal Server Error has occured',
-                'error'     => [
-                    'code'      => $e->getCode(),
-                    'message'   => $e->getMessage(),
-                    'line'      => $e->getLine(),
+                'success' => false,
+                'code'    => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => 'An Internal Server Error has occured',
+                'error'   => [
+                    'code'    => $e->getCode(),
+                    'message' => $e->getMessage(),
+                    'line'    => $e->getLine(),
                 ]
             ];
         } else {
             return [
                 'success' => false,
-                'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'code'    => Response::HTTP_INTERNAL_SERVER_ERROR,
                 'message' => 'An Internal Server Error has occured',
             ];
         }
@@ -284,38 +284,38 @@ class ServiceHelper
         // the exception instance is not null
         if ($e && config('app.debug')) {
             return [
-                'success'   => false,
-                'code'      => $code,
-                'message'   => $message,
-                'error'     => [
-                    'code'      => $e->getCode(),
-                    'message'   => $e->getMessage(),
-                    'line'      => $e->getLine(),
+                'success' => false,
+                'code'    => $code,
+                'message' => $message,
+                'error'   => [
+                    'code'    => $e->getCode(),
+                    'message' => $e->getMessage(),
+                    'line'    => $e->getLine(),
                 ],
             ];
         } else {
             return [
-                'success'   => false,
-                'code'      => $code,
-                'message'   => $message,
+                'success' => false,
+                'code'    => $code,
+                'message' => $message,
             ];
         }
     }
 
     /**
      * Return response body indicating a successful request
-     * @param int $code
+     * @param int    $code
      * @param string $message
-     * @param null $data
-     * @param null $pagination
+     * @param null   $data
+     * @param null   $pagination
      * @return array
      */
     public static function success(int $code = Response::HTTP_OK, $message = '', $data = null, $pagination = null)
     {
         // Construct response body
         $body = [
-            'success'   => true,
-            'code'      => $code
+            'success' => true,
+            'code'    => $code
         ];
 
         // Add message key and value if not empty
@@ -339,11 +339,11 @@ class ServiceHelper
     /**
      * Return response body indicating a failed request
      *
-     * @param int $code
+     * @param int    $code
      * @param string $message
-     * @param null $data
-     * @param null $exception
-     * @param null $errors
+     * @param null   $data
+     * @param null   $exception
+     * @param null   $errors
      *
      * @return array
      */
@@ -351,8 +351,8 @@ class ServiceHelper
     {
         // Construct response body
         $body = [
-            'success'   => false,
-            'code'      => $code
+            'success' => false,
+            'code'    => $code
         ];
 
         // Add message key and value if not empty
